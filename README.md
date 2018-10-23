@@ -1,2 +1,2 @@
-# s2iservice
-Let s2i run as service
+# s2irun
+run s2i in k8s
