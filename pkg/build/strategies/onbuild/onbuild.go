@@ -41,7 +41,7 @@ type onBuildSourceHandler struct {
 
 // New returns a new instance of OnBuild builder
 func New(client docker.Client, config *api.Config, fs fs.FileSystem, overrides build.Overrides) (*OnBuild, error) {
-	dockerHandler := docker.New(client, config.PullAuthentication)
+	dockerHandler := docker.New(client, config.PullAuthentication, config.PushAuthentication)
 	builder := &OnBuild{
 		docker: dockerHandler,
 		git:    git.New(fs, cmd.NewCommandRunner()),

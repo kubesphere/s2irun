@@ -42,7 +42,7 @@ func Strategy(client docker.Client, config *api.Config, overrides build.Override
 		return builder, buildInfo, nil
 	}
 
-	dkr := docker.New(client, config.PullAuthentication)
+	dkr := docker.New(client, config.PullAuthentication, config.PushAuthentication)
 	image, err := docker.GetBuilderImage(dkr, config)
 	buildInfo.Stages = api.RecordStageAndStepInfo(buildInfo.Stages, api.StagePullImages, api.StepPullBuilderImage, startTime, time.Now())
 	if err != nil {

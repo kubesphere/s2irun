@@ -2,7 +2,11 @@ package run
 
 import (
 	"bytes"
+	"encoding/json"
 	"fmt"
+	"os"
+
+	"github.com/MagicSong/s2irun/pkg/scm/git"
 
 	"github.com/MagicSong/s2irun/pkg/api"
 	"github.com/MagicSong/s2irun/pkg/api/describe"
@@ -13,10 +17,15 @@ import (
 	utilglog "github.com/MagicSong/s2irun/pkg/utils/glog"
 )
 
+const (
+	ConfigEnvVariable = "S2I_CONFIG_PATH"
+)
+
 var glog = utilglog.StderrLog
 
 // S2I Just run the command
 func S2I(cfg *api.Config) error {
+	cfg.DockerConfig = docker.GetDefaultDockerConfig()
 	if len(cfg.AsDockerfile) > 0 {
 		if cfg.RunImage {
 			return fmt.Errorf("ERROR: --run cannot be used with --as-dockerfile")
@@ -25,7 +34,6 @@ func S2I(cfg *api.Config) error {
 			return fmt.Errorf("ERROR: --runtime-image cannot be used with --as-dockerfile")
 		}
 	}
-
 	if cfg.Incremental && len(cfg.RuntimeImage) > 0 {
 		return fmt.Errorf("ERROR: Incremental build with runtime image isn't supported")
 	}
@@ -39,7 +47,6 @@ func S2I(cfg *api.Config) error {
 	if len(cfg.RuntimeImagePullPolicy) == 0 {
 		cfg.RuntimeImagePullPolicy = api.DefaultRuntimeImagePullPolicy
 	}
-
 	if errs := validation.ValidateConfig(cfg); len(errs) > 0 {
 		var buf bytes.Buffer
 		for _, e := range errs {
@@ -55,7 +62,7 @@ func S2I(cfg *api.Config) error {
 		return err
 	}
 
-	d := docker.New(client, cfg.PullAuthentication)
+	d := docker.New(client, cfg.PullAuthentication, cfg.PushAuthentication)
 	err = d.CheckReachable()
 	if err != nil {
 		return err
@@ -69,6 +76,7 @@ func S2I(cfg *api.Config) error {
 	if err != nil {
 		glog.V(0).Infof("Build failed")
 		s2ierr.CheckError(err)
+		return err
 	} else {
 		if len(cfg.AsDockerfile) > 0 {
 			glog.V(0).Infof("Application dockerfile generated in %s", cfg.AsDockerfile)
@@ -83,4 +91,33 @@ func S2I(cfg *api.Config) error {
 	}
 
 	return nil
+}
+
+func App() int {
+	var apiConfig = new(api.Config)
+	path := os.Getenv(ConfigEnvVariable)
+	file, err := os.Open(path)
+	defer file.Close()
+	if os.IsNotExist(err) {
+		glog.Errorf("Config file does not exist,please check the path: %s", path)
+		return 1
+	}
+
+	jsonParser := json.NewDecoder(file)
+	err = jsonParser.Decode(apiConfig)
+	if err != nil {
+		glog.Errorf("There are some errors in config file, please check the error:\n%v", err)
+		return 1
+	}
+	apiConfig.Source, err = git.Parse(apiConfig.SourceURL)
+	if err != nil {
+		glog.Errorf("SourceURL is illegal, please check the error:\n%v", err)
+		return 1
+	}
+	err = S2I(apiConfig)
+	if err != nil {
+		glog.Errorf("Build failed, please check the error:\n%v", err)
+		return 1
+	}
+	return 0
 }

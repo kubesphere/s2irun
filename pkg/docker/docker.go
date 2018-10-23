@@ -313,18 +313,42 @@ func NewEngineAPIClient(config *api.DockerConfig) (*dockerapi.Client, error) {
 }
 
 // New creates a new implementation of the STI Docker interface
-func New(client Client, auth api.AuthConfig) Docker {
+func New(client Client, pullAuth api.AuthConfig, pushAuth api.AuthConfig) Docker {
 	return &stiDocker{
 		client: client,
 		pullAuth: dockertypes.AuthConfig{
-			Username:      auth.Username,
-			Password:      auth.Password,
-			Email:         auth.Email,
-			ServerAddress: auth.ServerAddress,
+			Username:      pullAuth.Username,
+			Password:      pullAuth.Password,
+			Email:         pullAuth.Email,
+			ServerAddress: pullAuth.ServerAddress,
+		},
+		pushAuth: dockertypes.AuthConfig{
+			Username:      pushAuth.Username,
+			Password:      pushAuth.Password,
+			Email:         pushAuth.Email,
+			ServerAddress: pushAuth.ServerAddress,
 		},
 	}
 }
 
+func NewEnvClient(pullAuth api.AuthConfig, pushAuth api.AuthConfig) Docker {
+	c, _ := dockerapi.NewEnvClient()
+	return &stiDocker{
+		client: c,
+		pullAuth: dockertypes.AuthConfig{
+			Username:      pullAuth.Username,
+			Password:      pullAuth.Password,
+			Email:         pullAuth.Email,
+			ServerAddress: pullAuth.ServerAddress,
+		},
+		pushAuth: dockertypes.AuthConfig{
+			Username:      pushAuth.Username,
+			Password:      pushAuth.Password,
+			Email:         pushAuth.Email,
+			ServerAddress: pushAuth.ServerAddress,
+		},
+	}
+}
 func getDefaultContext() (context.Context, context.CancelFunc) {
 	// the intention is: all docker API calls with the exception of known long-
 	// running calls (ContainerWait, ImagePull, ImageBuild, ImageCommit) must complete within a
@@ -615,6 +639,7 @@ func (d *stiDocker) PushImage(name string) error {
 		return s2ierr.NewPushImageError(name, err)
 	}
 	retriableError := false
+	glog.V(0).Infof("Begin to push image <%s>", name)
 	for retries := 0; retries <= DefaultPushRetryCount; retries++ {
 		err = utils.TimeoutAfter(DefaultDockerTimeout, fmt.Sprintf("pushing image %q", name), func(timer *time.Timer) error {
 			resp, pushErr := d.client.ImagePush(context.Background(), name, dockertypes.ImagePushOptions{RegistryAuth: base64Auth})
@@ -643,7 +668,7 @@ func (d *stiDocker) PushImage(name string) error {
 					return msg.Error
 				}
 				if msg.Progress != nil {
-					glog.V(4).Infof("pushing image %s: %s", name, msg.Progress.String())
+					glog.V(3).Infof("pushing image %s: %s", name, msg.Progress.String())
 				}
 			}
 		})
@@ -666,7 +691,7 @@ func (d *stiDocker) PushImage(name string) error {
 		glog.V(0).Infof("retrying in %s ...", DefaultPullRetryDelay)
 		time.Sleep(DefaultPullRetryDelay)
 	}
-
+	glog.V(0).Info("pushing image succeed")
 	if err != nil {
 		return s2ierr.NewPushImageError(name, err)
 	}

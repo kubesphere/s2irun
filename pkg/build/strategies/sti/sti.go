@@ -63,6 +63,7 @@ type STI struct {
 	docker                 dockerpkg.Docker
 	incrementalDocker      dockerpkg.Docker
 	runtimeDocker          dockerpkg.Docker
+	pushDocker             dockerpkg.Docker
 	callbackInvoker        utils.CallbackInvoker
 	requiredScripts        []string
 	optionalScripts        []string
@@ -101,10 +102,10 @@ func New(client dockerpkg.Client, config *api.Config, fs fs.FileSystem, override
 		return nil, err
 	}
 
-	docker := dockerpkg.New(client, config.PullAuthentication)
+	docker := dockerpkg.New(client, config.PullAuthentication, config.PushAuthentication)
 	var incrementalDocker dockerpkg.Docker
 	if config.Incremental {
-		incrementalDocker = dockerpkg.New(client, config.IncrementalAuthentication)
+		incrementalDocker = dockerpkg.New(client, config.IncrementalAuthentication, config.PushAuthentication)
 	}
 
 	inst := scripts.NewInstaller(
@@ -137,7 +138,7 @@ func New(client dockerpkg.Client, config *api.Config, fs fs.FileSystem, override
 	}
 
 	if len(config.RuntimeImage) > 0 {
-		builder.runtimeDocker = dockerpkg.New(client, config.RuntimeAuthentication)
+		builder.runtimeDocker = dockerpkg.New(client, config.RuntimeAuthentication, config.PushAuthentication)
 
 		builder.runtimeInstaller = scripts.NewInstaller(
 			config.RuntimeImage,
@@ -148,7 +149,6 @@ func New(client dockerpkg.Client, config *api.Config, fs fs.FileSystem, override
 			builder.fs,
 		)
 	}
-
 	// The sources are downloaded using the Git downloader.
 	// TODO: Add more SCM in future.
 	// TODO: explicit decision made to customize processing for usage specifically vs.
@@ -199,11 +199,6 @@ func (builder *STI) Build(config *api.Config) (*api.Result, error) {
 			)
 		}()
 	}
-	if builder.config.Export {
-		defer func() {
-			builder.docker.PushImage(builder.config.Tag)
-		}()
-	}
 	defer builder.garbage.Cleanup(config)
 
 	glog.V(1).Infof("Preparing to build %s", config.Tag)
@@ -251,6 +246,16 @@ func (builder *STI) Build(config *api.Config) (*api.Result, error) {
 		}
 
 		return builder.result, err
+	}
+	if builder.config.Export {
+		err := builder.docker.PushImage(builder.config.Tag)
+		if err != nil {
+			builder.result.BuildInfo.FailureReason = utilstatus.NewFailureReason(
+				utilstatus.ReasonPushImageFailed,
+				utilstatus.ReasonMessagePushImageFailed,
+			)
+			return builder.result, err
+		}
 	}
 	builder.result.BuildInfo.Stages = api.RecordStageAndStepInfo(builder.result.BuildInfo.Stages, api.StageAssemble, api.StepAssembleBuildScripts, startTime, time.Now())
 	builder.result.Success = true

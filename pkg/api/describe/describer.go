@@ -103,7 +103,7 @@ func describeBuilderImage(client docker.Client, config *api.Config, out io.Write
 		Tag:                config.Tag,
 		IncrementalAuthentication: config.IncrementalAuthentication,
 	}
-	dkr := docker.New(client, c.PullAuthentication)
+	dkr := docker.New(client, c.PullAuthentication, c.PushAuthentication)
 	builderImage, err := docker.GetBuilderImage(dkr, c)
 	if err == nil {
 		build.GenerateConfigFromLabels(c, builderImage)

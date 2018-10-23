@@ -1,0 +1,11 @@
+{
+    "display_name":"For Test",
+    "source_url":"https://github.com/sclorg/django-ex",
+    "builder_image":"centos/python-35-centos7",
+    "tag":"magicsong/hello-python",
+    "export":true,
+    "push_authentication":{
+        "username":"magicsong",
+        "password":"song123docker"
+    }
+}

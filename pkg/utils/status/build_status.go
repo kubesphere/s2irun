@@ -19,6 +19,10 @@ const (
 	// to pull the builder image.
 	ReasonMessagePullBuilderImageFailed api.StepFailureMessage = "Failed to pull builder image."
 
+	ReasonPushImageFailed api.StepFailureReason = "PushImageFailed"
+
+	ReasonMessagePushImageFailed api.StepFailureMessage = "Failed to push the final image."
+
 	// ReasonPullRuntimeImageFailed is the reason associated with failing to pull
 	// the runtime image.
 	ReasonPullRuntimeImageFailed api.StepFailureReason = "PullRuntimeImageFailed"

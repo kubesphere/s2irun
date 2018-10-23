@@ -48,7 +48,7 @@ func New(client docker.Client, config *api.Config, fs fs.FileSystem, scripts bui
 		return nil, err
 	}
 
-	d := docker.New(client, config.PullAuthentication)
+	d := docker.New(client, config.PullAuthentication, config.PushAuthentication)
 	tarHandler := tar.New(fs)
 	tarHandler.SetExclusionPattern(excludePattern)
 

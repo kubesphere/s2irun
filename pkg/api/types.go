@@ -250,6 +250,8 @@ type Config struct {
 
 	//Export Push the result image to specify image registry in tag
 	Export bool `json:"export,omitempty"`
+
+	SourceURL string `json:"source_url,omitempty"`
 }
 
 // EnvironmentSpec specifies a single environment variable.
