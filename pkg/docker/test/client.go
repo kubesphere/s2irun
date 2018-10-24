@@ -89,6 +89,7 @@ type FakeDockerClient struct {
 	Containers map[string]dockercontainer.Config
 
 	PullFail error
+	PushFail error
 
 	Calls []string
 }
@@ -211,6 +212,14 @@ func (d *FakeDockerClient) ImagePull(ctx context.Context, ref string, options do
 		return nil, d.PullFail
 	}
 
+	return ioutil.NopCloser(bytes.NewReader([]byte{})), nil
+}
+
+func (d *FakeDockerClient) ImagePush(ctx context.Context, ref string, options dockertypes.ImagePullOptions) (io.ReadCloser, error) {
+	d.Calls = append(d.Calls, "push")
+	if d.PullFail != nil {
+		return nil, d.PullFail
+	}
 	return ioutil.NopCloser(bytes.NewReader([]byte{})), nil
 }
 
