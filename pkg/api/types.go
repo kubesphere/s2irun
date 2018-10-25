@@ -269,14 +269,22 @@ func (c *Config) DeepCopyInto(out *Config) {
 	copy(out.SecurityOpt, c.SecurityOpt)
 
 	//pointer
-	out.DockerConfig = new(DockerConfig)
-	*(out.DockerConfig) = *(c.DockerConfig)
-	out.Source = new(git.URL)
-	*(out.Source) = *(c.Source)
-	out.SourceInfo = new(git.SourceInfo)
-	*(out.SourceInfo) = *(c.SourceInfo)
-	out.CGroupLimits = new(CGroupLimits)
-	*(out.CGroupLimits) = *(c.CGroupLimits)
+	if c.DockerConfig != nil {
+		out.DockerConfig = new(DockerConfig)
+		*(out.DockerConfig) = *(c.DockerConfig)
+	}
+	if c.Source != nil {
+		out.Source = new(git.URL)
+		*(out.Source) = *(c.Source)
+	}
+	if c.SourceInfo != nil {
+		out.SourceInfo = new(git.SourceInfo)
+		*(out.SourceInfo) = *(c.SourceInfo)
+	}
+	if c.CGroupLimits != nil {
+		out.CGroupLimits = new(CGroupLimits)
+		*(out.CGroupLimits) = *(c.CGroupLimits)
+	}
 }
 
 // EnvironmentSpec specifies a single environment variable.
