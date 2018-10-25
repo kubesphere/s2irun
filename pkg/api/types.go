@@ -108,7 +108,7 @@ type Config struct {
 	IgnoreSubmodules bool `json:"ignore_submodules,omitempty"`
 
 	// Source URL describing the location of sources used to build the result image.
-	Source *git.URL `json:"source,omitempty"`
+	Source *git.URL `json:"-"`
 
 	// Tag is a result image tag name.
 	Tag string `json:"tag,omitempty"`
@@ -252,6 +252,31 @@ type Config struct {
 	Export bool `json:"export,omitempty"`
 
 	SourceURL string `json:"source_url,omitempty"`
+}
+
+// DeepCopyInto to implement k8s api requirement
+func (c *Config) DeepCopyInto(out *Config) {
+	*out = *c
+
+	//slice
+	out.DropCapabilities = make([]string, len(c.DropCapabilities))
+	copy(out.DropCapabilities, c.DropCapabilities)
+	out.BuildVolumes = make([]string, len(c.BuildVolumes))
+	copy(out.BuildVolumes, c.BuildVolumes)
+	out.AddHost = make([]string, len(c.AddHost))
+	copy(out.AddHost, c.AddHost)
+	out.SecurityOpt = make([]string, len(c.SecurityOpt))
+	copy(out.SecurityOpt, c.SecurityOpt)
+
+	//pointer
+	out.DockerConfig = new(DockerConfig)
+	*(out.DockerConfig) = *(c.DockerConfig)
+	out.Source = new(git.URL)
+	*(out.Source) = *(c.Source)
+	out.SourceInfo = new(git.SourceInfo)
+	*(out.SourceInfo) = *(c.SourceInfo)
+	out.CGroupLimits = new(CGroupLimits)
+	*(out.CGroupLimits) = *(c.CGroupLimits)
 }
 
 // EnvironmentSpec specifies a single environment variable.
