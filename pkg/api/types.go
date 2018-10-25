@@ -259,14 +259,22 @@ func (c *Config) DeepCopyInto(out *Config) {
 	*out = *c
 
 	//slice
-	out.DropCapabilities = make([]string, len(c.DropCapabilities))
-	copy(out.DropCapabilities, c.DropCapabilities)
-	out.BuildVolumes = make([]string, len(c.BuildVolumes))
-	copy(out.BuildVolumes, c.BuildVolumes)
-	out.AddHost = make([]string, len(c.AddHost))
-	copy(out.AddHost, c.AddHost)
-	out.SecurityOpt = make([]string, len(c.SecurityOpt))
-	copy(out.SecurityOpt, c.SecurityOpt)
+	if c.DropCapabilities != nil {
+		out.DropCapabilities = make([]string, len(c.DropCapabilities))
+		copy(out.DropCapabilities, c.DropCapabilities)
+	}
+	if c.BuildVolumes != nil {
+		out.BuildVolumes = make([]string, len(c.BuildVolumes))
+		copy(out.BuildVolumes, c.BuildVolumes)
+	}
+	if c.AddHost != nil {
+		out.AddHost = make([]string, len(c.AddHost))
+		copy(out.AddHost, c.AddHost)
+	}
+	if c.SecurityOpt != nil {
+		out.SecurityOpt = make([]string, len(c.SecurityOpt))
+		copy(out.SecurityOpt, c.SecurityOpt)
+	}
 
 	//pointer
 	if c.DockerConfig != nil {
