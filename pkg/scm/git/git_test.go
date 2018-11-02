@@ -7,9 +7,9 @@ import (
 	"reflect"
 	"testing"
 
-	testcmd "github.com/MagicSong/s2irun/pkg/test/cmd"
-	testfs "github.com/MagicSong/s2irun/pkg/test/fs"
-	"github.com/MagicSong/s2irun/pkg/utils/fs"
+	testcmd "github.com/magicsong/s2irun/pkg/test/cmd"
+	testfs "github.com/magicsong/s2irun/pkg/test/fs"
+	"github.com/magicsong/s2irun/pkg/utils/fs"
 )
 
 func TestIsValidGitRepository(t *testing.T) {

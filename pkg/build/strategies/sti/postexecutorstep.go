@@ -12,14 +12,14 @@ import (
 	"strings"
 	"time"
 
-	"github.com/MagicSong/s2irun/pkg/api"
-	"github.com/MagicSong/s2irun/pkg/api/constants"
-	dockerpkg "github.com/MagicSong/s2irun/pkg/docker"
-	s2ierr "github.com/MagicSong/s2irun/pkg/errors"
-	s2itar "github.com/MagicSong/s2irun/pkg/tar"
-	"github.com/MagicSong/s2irun/pkg/utils"
-	"github.com/MagicSong/s2irun/pkg/utils/fs"
-	utilstatus "github.com/MagicSong/s2irun/pkg/utils/status"
+	"github.com/magicsong/s2irun/pkg/api"
+	"github.com/magicsong/s2irun/pkg/api/constants"
+	dockerpkg "github.com/magicsong/s2irun/pkg/docker"
+	s2ierr "github.com/magicsong/s2irun/pkg/errors"
+	s2itar "github.com/magicsong/s2irun/pkg/tar"
+	"github.com/magicsong/s2irun/pkg/utils"
+	"github.com/magicsong/s2irun/pkg/utils/fs"
+	utilstatus "github.com/magicsong/s2irun/pkg/utils/status"
 )
 
 const maximumLabelSize = 10240

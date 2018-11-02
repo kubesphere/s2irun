@@ -6,11 +6,11 @@ import (
 	"path/filepath"
 	"strings"
 
-	"github.com/MagicSong/s2irun/pkg/api"
-	"github.com/MagicSong/s2irun/pkg/api/constants"
-	"github.com/MagicSong/s2irun/pkg/docker"
-	s2ierr "github.com/MagicSong/s2irun/pkg/errors"
-	"github.com/MagicSong/s2irun/pkg/utils/fs"
+	"github.com/magicsong/s2irun/pkg/api"
+	"github.com/magicsong/s2irun/pkg/api/constants"
+	"github.com/magicsong/s2irun/pkg/docker"
+	s2ierr "github.com/magicsong/s2irun/pkg/errors"
+	"github.com/magicsong/s2irun/pkg/utils/fs"
 )
 
 // Installer interface is responsible for installing scripts needed to run the

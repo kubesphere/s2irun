@@ -1,15 +1,15 @@
 package scm
 
 import (
-	"github.com/MagicSong/s2irun/pkg/build"
-	"github.com/MagicSong/s2irun/pkg/errors"
-	"github.com/MagicSong/s2irun/pkg/scm/downloaders/empty"
-	"github.com/MagicSong/s2irun/pkg/scm/downloaders/file"
-	gitdownloader "github.com/MagicSong/s2irun/pkg/scm/downloaders/git"
-	"github.com/MagicSong/s2irun/pkg/scm/git"
-	"github.com/MagicSong/s2irun/pkg/utils/cmd"
-	"github.com/MagicSong/s2irun/pkg/utils/fs"
-	utilglog "github.com/MagicSong/s2irun/pkg/utils/glog"
+	"github.com/magicsong/s2irun/pkg/build"
+	"github.com/magicsong/s2irun/pkg/errors"
+	"github.com/magicsong/s2irun/pkg/scm/downloaders/empty"
+	"github.com/magicsong/s2irun/pkg/scm/downloaders/file"
+	gitdownloader "github.com/magicsong/s2irun/pkg/scm/downloaders/git"
+	"github.com/magicsong/s2irun/pkg/scm/git"
+	"github.com/magicsong/s2irun/pkg/utils/cmd"
+	"github.com/magicsong/s2irun/pkg/utils/fs"
+	utilglog "github.com/magicsong/s2irun/pkg/utils/glog"
 )
 
 var glog = utilglog.StderrLog

@@ -8,8 +8,8 @@ import (
 	"path/filepath"
 	"strings"
 
-	"github.com/MagicSong/s2irun/pkg/api"
-	"github.com/MagicSong/s2irun/pkg/api/constants"
+	"github.com/magicsong/s2irun/pkg/api"
+	"github.com/magicsong/s2irun/pkg/api/constants"
 )
 
 // GetEnvironment gets the .s2i/environment file located in the sources and

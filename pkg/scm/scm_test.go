@@ -7,8 +7,8 @@ import (
 	"reflect"
 	"testing"
 
-	"github.com/MagicSong/s2irun/pkg/scm/git"
-	"github.com/MagicSong/s2irun/pkg/utils/fs"
+	"github.com/magicsong/s2irun/pkg/scm/git"
+	"github.com/magicsong/s2irun/pkg/utils/fs"
 )
 
 func TestDownloaderForSource(t *testing.T) {

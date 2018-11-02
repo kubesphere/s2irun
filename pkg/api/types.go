@@ -8,9 +8,9 @@ import (
 	"strings"
 	"time"
 
-	"github.com/MagicSong/s2irun/pkg/scm/git"
-	utilglog "github.com/MagicSong/s2irun/pkg/utils/glog"
-	"github.com/MagicSong/s2irun/pkg/utils/user"
+	"github.com/magicsong/s2irun/pkg/scm/git"
+	utilglog "github.com/magicsong/s2irun/pkg/utils/glog"
+	"github.com/magicsong/s2irun/pkg/utils/user"
 )
 
 var glog = utilglog.StderrLog

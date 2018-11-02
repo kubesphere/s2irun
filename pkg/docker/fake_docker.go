@@ -7,9 +7,9 @@ import (
 
 	dockertypes "github.com/docker/docker/api/types"
 
-	"github.com/MagicSong/s2irun/pkg/api"
-	"github.com/MagicSong/s2irun/pkg/tar"
-	"github.com/MagicSong/s2irun/pkg/utils/fs"
+	"github.com/magicsong/s2irun/pkg/api"
+	"github.com/magicsong/s2irun/pkg/tar"
+	"github.com/magicsong/s2irun/pkg/utils/fs"
 )
 
 // FakeDocker provides a fake docker interface

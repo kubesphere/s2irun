@@ -6,9 +6,9 @@ import (
 	"strings"
 	"testing"
 
-	"github.com/MagicSong/s2irun/pkg/api"
-	"github.com/MagicSong/s2irun/pkg/api/constants"
-	"github.com/MagicSong/s2irun/pkg/utils/fs"
+	"github.com/magicsong/s2irun/pkg/api"
+	"github.com/magicsong/s2irun/pkg/api/constants"
+	"github.com/magicsong/s2irun/pkg/utils/fs"
 )
 
 func baseTest(t *testing.T, patterns []string, filesToDel []string, filesToKeep []string) {

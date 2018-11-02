@@ -5,9 +5,9 @@ import (
 	"strings"
 	"testing"
 
-	"github.com/MagicSong/s2irun/pkg/api"
-	"github.com/MagicSong/s2irun/pkg/scm/git"
-	testfs "github.com/MagicSong/s2irun/pkg/test/fs"
+	"github.com/magicsong/s2irun/pkg/api"
+	"github.com/magicsong/s2irun/pkg/scm/git"
+	testfs "github.com/magicsong/s2irun/pkg/test/fs"
 )
 
 func TestDownload(t *testing.T) {

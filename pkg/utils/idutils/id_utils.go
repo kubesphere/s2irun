@@ -1,7 +1,7 @@
 package idutils
 
 import (
-	"github.com/MagicSong/s2irun/pkg/utils/stringutils"
+	"github.com/magicsong/s2irun/pkg/utils/stringutils"
 	"github.com/sony/sonyflake"
 	"github.com/speps/go-hashids"
 )

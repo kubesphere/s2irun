@@ -4,8 +4,8 @@ import (
 	"fmt"
 	"os"
 
-	"github.com/MagicSong/s2irun/pkg/api/constants"
-	utilglog "github.com/MagicSong/s2irun/pkg/utils/glog"
+	"github.com/magicsong/s2irun/pkg/api/constants"
+	utilglog "github.com/magicsong/s2irun/pkg/utils/glog"
 )
 
 // Common S2I errors
@@ -299,8 +299,8 @@ func CheckError(err error) {
 		if e.Details != nil {
 			glog.V(1).Infof("Details: %v", e.Details)
 		}
-		glog.Error("If the problem persists consult the docs at https://github.com/MagicSong/s2irun/tree/master/docs. " +
-			"Eventually reach us on freenode #openshift or file an issue at https://github.com/MagicSong/s2irun/issues " +
+		glog.Error("If the problem persists consult the docs at https://github.com/magicsong/s2irun/tree/master/docs. " +
+			"Eventually reach us on freenode #openshift or file an issue at https://github.com/magicsong/s2irun/issues " +
 			"providing us with a log from your build using log output level 3.")
 		os.Exit(e.ErrorCode)
 	} else {

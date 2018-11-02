@@ -11,10 +11,10 @@ import (
 	"strings"
 	"testing"
 
-	"github.com/MagicSong/s2irun/pkg/api/constants"
-	dockertest "github.com/MagicSong/s2irun/pkg/docker/test"
-	"github.com/MagicSong/s2irun/pkg/errors"
-	testfs "github.com/MagicSong/s2irun/pkg/test/fs"
+	"github.com/magicsong/s2irun/pkg/api/constants"
+	dockertest "github.com/magicsong/s2irun/pkg/docker/test"
+	"github.com/magicsong/s2irun/pkg/errors"
+	testfs "github.com/magicsong/s2irun/pkg/test/fs"
 
 	dockertypes "github.com/docker/docker/api/types"
 	dockercontainer "github.com/docker/docker/api/types/container"

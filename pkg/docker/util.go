@@ -17,11 +17,11 @@ import (
 	cliconfig "github.com/docker/docker/cli/config"
 	"github.com/docker/docker/client"
 
-	"github.com/MagicSong/s2irun/pkg/api"
-	"github.com/MagicSong/s2irun/pkg/api/constants"
-	s2ierr "github.com/MagicSong/s2irun/pkg/errors"
-	utilglog "github.com/MagicSong/s2irun/pkg/utils/glog"
-	"github.com/MagicSong/s2irun/pkg/utils/user"
+	"github.com/magicsong/s2irun/pkg/api"
+	"github.com/magicsong/s2irun/pkg/api/constants"
+	s2ierr "github.com/magicsong/s2irun/pkg/errors"
+	utilglog "github.com/magicsong/s2irun/pkg/utils/glog"
+	"github.com/magicsong/s2irun/pkg/utils/user"
 )
 
 var (
@@ -205,7 +205,7 @@ func authConfigs(confs map[string]dockerConfig) (*AuthConfigurations, error) {
 // redirect it to the log function (typically we pass in glog.Error for stderr
 // and glog.Info for stdout. The caller should wrap glog functions in a closure
 // to ensure accurate line numbers are reported:
-// https://github.com/MagicSong/s2irun/issues/558 .
+// https://github.com/magicsong/s2irun/issues/558 .
 // StreamContainerIO returns a channel which is closed after the reader is
 // closed.
 func StreamContainerIO(r io.Reader, errOutput *string, log func(string)) <-chan struct{} {

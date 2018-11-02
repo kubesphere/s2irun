@@ -7,12 +7,12 @@ import (
 	"strings"
 	"testing"
 
-	"github.com/MagicSong/s2irun/pkg/api"
-	"github.com/MagicSong/s2irun/pkg/api/constants"
-	dockerpkg "github.com/MagicSong/s2irun/pkg/docker"
-	"github.com/MagicSong/s2irun/pkg/test"
-	testfs "github.com/MagicSong/s2irun/pkg/test/fs"
-	"github.com/MagicSong/s2irun/pkg/utils/fs"
+	"github.com/magicsong/s2irun/pkg/api"
+	"github.com/magicsong/s2irun/pkg/api/constants"
+	dockerpkg "github.com/magicsong/s2irun/pkg/docker"
+	"github.com/magicsong/s2irun/pkg/test"
+	testfs "github.com/magicsong/s2irun/pkg/test/fs"
+	"github.com/magicsong/s2irun/pkg/utils/fs"
 )
 
 type fakeScriptManagerConfig struct {

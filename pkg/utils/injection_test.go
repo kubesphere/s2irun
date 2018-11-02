@@ -9,8 +9,8 @@ import (
 	"strings"
 	"testing"
 
-	"github.com/MagicSong/s2irun/pkg/api"
-	"github.com/MagicSong/s2irun/pkg/utils/fs"
+	"github.com/magicsong/s2irun/pkg/api"
+	"github.com/magicsong/s2irun/pkg/utils/fs"
 )
 
 func TestCreateTruncateFilesScript(t *testing.T) {

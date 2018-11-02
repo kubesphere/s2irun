@@ -3,7 +3,7 @@ package scripts
 import (
 	"testing"
 
-	"github.com/MagicSong/s2irun/pkg/api"
+	"github.com/magicsong/s2irun/pkg/api"
 )
 
 func TestConvertEnvironmentList(t *testing.T) {

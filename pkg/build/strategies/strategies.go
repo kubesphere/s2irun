@@ -3,14 +3,14 @@ package strategies
 import (
 	"time"
 
-	"github.com/MagicSong/s2irun/pkg/api"
-	"github.com/MagicSong/s2irun/pkg/build"
-	"github.com/MagicSong/s2irun/pkg/build/strategies/dockerfile"
-	"github.com/MagicSong/s2irun/pkg/build/strategies/onbuild"
-	"github.com/MagicSong/s2irun/pkg/build/strategies/sti"
-	"github.com/MagicSong/s2irun/pkg/docker"
-	"github.com/MagicSong/s2irun/pkg/utils/fs"
-	utilstatus "github.com/MagicSong/s2irun/pkg/utils/status"
+	"github.com/magicsong/s2irun/pkg/api"
+	"github.com/magicsong/s2irun/pkg/build"
+	"github.com/magicsong/s2irun/pkg/build/strategies/dockerfile"
+	"github.com/magicsong/s2irun/pkg/build/strategies/onbuild"
+	"github.com/magicsong/s2irun/pkg/build/strategies/sti"
+	"github.com/magicsong/s2irun/pkg/docker"
+	"github.com/magicsong/s2irun/pkg/utils/fs"
+	utilstatus "github.com/magicsong/s2irun/pkg/utils/status"
 )
 
 // GetStrategy decides what build strategy will be used for the STI build.

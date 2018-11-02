@@ -8,10 +8,10 @@ import (
 	"path/filepath"
 	"sync"
 
-	"github.com/MagicSong/s2irun/pkg/api"
-	s2ierr "github.com/MagicSong/s2irun/pkg/errors"
-	"github.com/MagicSong/s2irun/pkg/scm/git"
-	utilglog "github.com/MagicSong/s2irun/pkg/utils/glog"
+	"github.com/magicsong/s2irun/pkg/api"
+	s2ierr "github.com/magicsong/s2irun/pkg/errors"
+	"github.com/magicsong/s2irun/pkg/scm/git"
+	utilglog "github.com/magicsong/s2irun/pkg/utils/glog"
 )
 
 var glog = utilglog.StderrLog

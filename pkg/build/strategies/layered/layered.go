@@ -12,15 +12,15 @@ import (
 	"regexp"
 	"time"
 
-	"github.com/MagicSong/s2irun/pkg/api"
-	"github.com/MagicSong/s2irun/pkg/api/constants"
-	"github.com/MagicSong/s2irun/pkg/build"
-	"github.com/MagicSong/s2irun/pkg/docker"
-	s2ierr "github.com/MagicSong/s2irun/pkg/errors"
-	"github.com/MagicSong/s2irun/pkg/tar"
-	"github.com/MagicSong/s2irun/pkg/utils/fs"
-	utilglog "github.com/MagicSong/s2irun/pkg/utils/glog"
-	utilstatus "github.com/MagicSong/s2irun/pkg/utils/status"
+	"github.com/magicsong/s2irun/pkg/api"
+	"github.com/magicsong/s2irun/pkg/api/constants"
+	"github.com/magicsong/s2irun/pkg/build"
+	"github.com/magicsong/s2irun/pkg/docker"
+	s2ierr "github.com/magicsong/s2irun/pkg/errors"
+	"github.com/magicsong/s2irun/pkg/tar"
+	"github.com/magicsong/s2irun/pkg/utils/fs"
+	utilglog "github.com/magicsong/s2irun/pkg/utils/glog"
+	utilstatus "github.com/magicsong/s2irun/pkg/utils/status"
 )
 
 var glog = utilglog.StderrLog

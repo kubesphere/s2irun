@@ -10,12 +10,12 @@ import (
 	"strings"
 	"testing"
 
-	"github.com/MagicSong/s2irun/pkg/api"
-	"github.com/MagicSong/s2irun/pkg/api/constants"
-	"github.com/MagicSong/s2irun/pkg/build"
-	"github.com/MagicSong/s2irun/pkg/docker"
-	"github.com/MagicSong/s2irun/pkg/test"
-	testfs "github.com/MagicSong/s2irun/pkg/test/fs"
+	"github.com/magicsong/s2irun/pkg/api"
+	"github.com/magicsong/s2irun/pkg/api/constants"
+	"github.com/magicsong/s2irun/pkg/build"
+	"github.com/magicsong/s2irun/pkg/docker"
+	"github.com/magicsong/s2irun/pkg/test"
+	testfs "github.com/magicsong/s2irun/pkg/test/fs"
 )
 
 type FakeExecutor struct{}

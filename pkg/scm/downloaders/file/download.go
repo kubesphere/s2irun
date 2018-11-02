@@ -5,11 +5,11 @@ import (
 	"path/filepath"
 	"strings"
 
-	"github.com/MagicSong/s2irun/pkg/api"
-	"github.com/MagicSong/s2irun/pkg/api/constants"
-	"github.com/MagicSong/s2irun/pkg/scm/git"
-	"github.com/MagicSong/s2irun/pkg/utils/fs"
-	utilglog "github.com/MagicSong/s2irun/pkg/utils/glog"
+	"github.com/magicsong/s2irun/pkg/api"
+	"github.com/magicsong/s2irun/pkg/api/constants"
+	"github.com/magicsong/s2irun/pkg/scm/git"
+	"github.com/magicsong/s2irun/pkg/utils/fs"
+	utilglog "github.com/magicsong/s2irun/pkg/utils/glog"
 )
 
 var glog = utilglog.StderrLog

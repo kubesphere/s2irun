@@ -3,9 +3,9 @@ package utils
 import (
 	"fmt"
 
-	"github.com/MagicSong/s2irun/pkg/api"
-	"github.com/MagicSong/s2irun/pkg/api/constants"
-	"github.com/MagicSong/s2irun/pkg/scm/git"
+	"github.com/magicsong/s2irun/pkg/api"
+	"github.com/magicsong/s2irun/pkg/api/constants"
+	"github.com/magicsong/s2irun/pkg/scm/git"
 )
 
 // GenerateOutputImageLabels generate the labels based on the s2i Config

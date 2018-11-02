@@ -7,9 +7,9 @@ import (
 	"path/filepath"
 	"strings"
 
-	"github.com/MagicSong/s2irun/pkg/api"
-	"github.com/MagicSong/s2irun/pkg/api/constants"
-	utilglog "github.com/MagicSong/s2irun/pkg/utils/glog"
+	"github.com/magicsong/s2irun/pkg/api"
+	"github.com/magicsong/s2irun/pkg/api/constants"
+	utilglog "github.com/magicsong/s2irun/pkg/utils/glog"
 )
 
 var glog = utilglog.StderrLog

@@ -6,7 +6,7 @@ import (
 
 	"github.com/docker/distribution/reference"
 
-	"github.com/MagicSong/s2irun/pkg/api"
+	"github.com/magicsong/s2irun/pkg/api"
 )
 
 // ValidateConfig returns a list of error from validation.

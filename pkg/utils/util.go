@@ -3,7 +3,7 @@ package utils
 import (
 	"github.com/docker/docker/api/types/container"
 
-	utilglog "github.com/MagicSong/s2irun/pkg/utils/glog"
+	utilglog "github.com/magicsong/s2irun/pkg/utils/glog"
 )
 
 var glog = utilglog.StderrLog

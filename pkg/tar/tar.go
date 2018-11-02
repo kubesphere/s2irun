@@ -11,11 +11,11 @@ import (
 	"strings"
 	"time"
 
-	"github.com/MagicSong/s2irun/pkg/utils/fs"
-	utilglog "github.com/MagicSong/s2irun/pkg/utils/glog"
+	"github.com/magicsong/s2irun/pkg/utils/fs"
+	utilglog "github.com/magicsong/s2irun/pkg/utils/glog"
 
-	s2ierr "github.com/MagicSong/s2irun/pkg/errors"
-	"github.com/MagicSong/s2irun/pkg/utils"
+	s2ierr "github.com/magicsong/s2irun/pkg/errors"
+	"github.com/magicsong/s2irun/pkg/utils"
 )
 
 var glog = utilglog.StderrLog

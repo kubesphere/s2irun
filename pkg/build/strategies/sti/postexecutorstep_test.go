@@ -5,7 +5,7 @@ import (
 	"reflect"
 	"testing"
 
-	"github.com/MagicSong/s2irun/pkg/docker"
+	"github.com/magicsong/s2irun/pkg/docker"
 )
 
 func TestStorePreviousImageStep(t *testing.T) {

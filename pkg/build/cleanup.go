@@ -1,10 +1,10 @@
 package build
 
 import (
-	"github.com/MagicSong/s2irun/pkg/api"
-	"github.com/MagicSong/s2irun/pkg/docker"
-	"github.com/MagicSong/s2irun/pkg/utils/fs"
-	utilglog "github.com/MagicSong/s2irun/pkg/utils/glog"
+	"github.com/magicsong/s2irun/pkg/api"
+	"github.com/magicsong/s2irun/pkg/docker"
+	"github.com/magicsong/s2irun/pkg/utils/fs"
+	utilglog "github.com/magicsong/s2irun/pkg/utils/glog"
 )
 
 var glog = utilglog.StderrLog

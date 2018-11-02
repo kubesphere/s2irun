@@ -12,8 +12,8 @@ import (
 	"testing"
 	"time"
 
-	s2ierr "github.com/MagicSong/s2irun/pkg/errors"
-	"github.com/MagicSong/s2irun/pkg/utils/fs"
+	s2ierr "github.com/magicsong/s2irun/pkg/errors"
+	"github.com/magicsong/s2irun/pkg/utils/fs"
 )
 
 type dirDesc struct {

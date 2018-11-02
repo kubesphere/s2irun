@@ -3,7 +3,7 @@ package dockerfile
 import (
 	"testing"
 
-	"github.com/MagicSong/s2irun/pkg/api"
+	"github.com/magicsong/s2irun/pkg/api"
 )
 
 func TestGetImageScriptsDir(t *testing.T) {

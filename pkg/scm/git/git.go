@@ -13,10 +13,10 @@ import (
 
 	log "github.com/golang/glog"
 
-	"github.com/MagicSong/s2irun/pkg/utils/cmd"
-	"github.com/MagicSong/s2irun/pkg/utils/cygpath"
-	"github.com/MagicSong/s2irun/pkg/utils/fs"
-	utilglog "github.com/MagicSong/s2irun/pkg/utils/glog"
+	"github.com/magicsong/s2irun/pkg/utils/cmd"
+	"github.com/magicsong/s2irun/pkg/utils/cygpath"
+	"github.com/magicsong/s2irun/pkg/utils/fs"
+	utilglog "github.com/magicsong/s2irun/pkg/utils/glog"
 )
 
 var glog = utilglog.StderrLog
