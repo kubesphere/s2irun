@@ -1,4 +1,4 @@
-IMG ?= magicsong/s2irunner:lastest
+IMG ?= magicsong/s2irunner:latest
 build:
 	CGO_ENABLED=0 GOOS=linux GOARCH=amd64 go build -o _output/cmd/builder github.com/magicsong/s2irun/cmd
 run: 

@@ -1,11 +1,10 @@
 package git
 
 import (
-	"os"
 	"path/filepath"
-	"runtime"
 
 	"github.com/golang/glog"
+
 	"github.com/magicsong/s2irun/pkg/api"
 	"github.com/magicsong/s2irun/pkg/api/constants"
 	"github.com/magicsong/s2irun/pkg/scm/git"
@@ -60,17 +59,6 @@ func (c *Clone) Download(config *api.Config) (*git.SourceInfo, error) {
 			return nil, err
 		}
 		glog.V(1).Infof("Updated submodules for %q", ref)
-	}
-
-	// Record Git's knowledge about file permissions
-	if runtime.GOOS == "windows" {
-		filemodes, err := c.LsTree(filepath.Join(targetSourceDir, config.ContextDir), ref, true)
-		if err != nil {
-			return nil, err
-		}
-		for _, filemode := range filemodes {
-			c.Chmod(filepath.Join(targetSourceDir, config.ContextDir, filemode.Name()), os.FileMode(filemode.Mode())&os.ModePerm)
-		}
 	}
 
 	info := c.GetInfo(targetSourceDir)
