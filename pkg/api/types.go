@@ -295,6 +295,12 @@ func (c *Config) DeepCopyInto(out *Config) {
 	}
 }
 
+func (c *Config) DeepCopy() Config {
+	out := new(Config)
+	c.DeepCopyInto(out)
+	return *out
+}
+
 // EnvironmentSpec specifies a single environment variable.
 type EnvironmentSpec struct {
 	Name  string
