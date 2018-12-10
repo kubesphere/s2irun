@@ -295,10 +295,10 @@ func (c *Config) DeepCopyInto(out *Config) {
 	}
 }
 
-func (c *Config) DeepCopy() Config {
+func (c *Config) DeepCopy() *Config {
 	out := new(Config)
 	c.DeepCopyInto(out)
-	return *out
+	return out
 }
 
 // EnvironmentSpec specifies a single environment variable.
