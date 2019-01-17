@@ -44,32 +44,32 @@ const (
 type Config struct {
 	// DisplayName is a result image display-name label. This defaults to the
 	// output image name.
-	DisplayName string `json:"display_name,omitempty"`
+	DisplayName string `json:"displayName,omitempty"`
 
 	// Description is a result image description label. The default is no
 	// description.
 	Description string `json:"description,omitempty"`
 
 	// BuilderImage describes which image is used for building the result images.
-	BuilderImage string `json:"builder_image,omitempty"`
+	BuilderImage string `json:"builderImage,omitempty"`
 
 	// BuilderImageVersion provides optional version information about the builder image.
-	BuilderImageVersion string `json:"builder_image_version,omitempty"`
+	BuilderImageVersion string `json:"builderImageVersion,omitempty"`
 
 	// BuilderBaseImageVersion provides optional version information about the builder base image.
-	BuilderBaseImageVersion string `json:"builder_base_image_version,omitempty"`
+	BuilderBaseImageVersion string `json:"builderBaseImageVersion,omitempty"`
 
 	// RuntimeImage specifies the image that will be a base for resulting image
 	// and will be used for running an application. By default, BuilderImage is
 	// used for building and running, but the latter may be overridden.
-	RuntimeImage string `json:"runtime_image,omitempty"`
+	RuntimeImage string `json:"runtimeImage,omitempty"`
 
 	// RuntimeImagePullPolicy specifies when to pull a runtime image.
-	RuntimeImagePullPolicy PullPolicy `json:"runtime_image_pull_policy,omitempty"`
+	RuntimeImagePullPolicy PullPolicy `json:"runtimeImagePullPolicy,omitempty"`
 
 	// RuntimeAuthentication holds the authentication information for pulling the
 	// runtime Docker images from private repositories.
-	RuntimeAuthentication AuthConfig `json:"runtime_authentication,omitempty"`
+	RuntimeAuthentication AuthConfig `json:"runtimeAuthentication,omitempty"`
 
 	// RuntimeArtifacts specifies a list of source/destination pairs that will
 	// be copied from builder to a runtime image. Source can be a file or
@@ -79,83 +79,83 @@ type Config struct {
 	// refers to a root of WORKDIR.
 	// In case it's empty, S2I will try to get this list from
 	// io.openshift.s2i.assemble-input-files label on a RuntimeImage.
-	RuntimeArtifacts VolumeList `json:"runtime_artifacts,omitempty"`
+	RuntimeArtifacts VolumeList `json:"runtimeArtifacts,omitempty"`
 
 	// DockerConfig describes how to access host docker daemon.
-	DockerConfig *DockerConfig `json:"docker_config,omitempty"`
+	DockerConfig *DockerConfig `json:"dockerConfig,omitempty"`
 
 	// PullAuthentication holds the authentication information for pulling the
 	// Docker images from private repositories
-	PullAuthentication AuthConfig `json:"pull_authentication,omitempty"`
+	PullAuthentication AuthConfig `json:"pullAuthentication,omitempty"`
 
 	// PullAuthentication holds the authentication information for pulling the
 	// Docker images from private repositories
-	PushAuthentication AuthConfig `json:"push_authentication,omitempty"`
+	PushAuthentication AuthConfig `json:"pushAuthentication,omitempty"`
 
 	// IncrementalAuthentication holds the authentication information for pulling the
 	// previous image from private repositories
-	IncrementalAuthentication AuthConfig `json:"incremental_authentication,omitempty"`
+	IncrementalAuthentication AuthConfig `json:"incrementalAuthentication,omitempty"`
 
 	// DockerNetworkMode is used to set the docker network setting to --net=container:<id>
 	// when the builder is invoked from a container.
-	DockerNetworkMode DockerNetworkMode `json:"docker_network_mode,omitempty"`
+	DockerNetworkMode DockerNetworkMode `json:"dockerNetworkMode,omitempty"`
 
 	// PreserveWorkingDir describes if working directory should be left after processing.
-	PreserveWorkingDir bool `json:"preserve_working_dir,omitempty"`
+	PreserveWorkingDir bool `json:"preserveWorkingDir,omitempty"`
 
 	// IgnoreSubmodules determines whether we will attempt to pull in submodules
 	// (via --recursive or submodule init)
-	IgnoreSubmodules bool `json:"ignore_submodules,omitempty"`
+	IgnoreSubmodules bool `json:"ignoreSubmodules,omitempty"`
 
 	// Source URL describing the location of sources used to build the result image.
-	Source *git.URL `json:"-"`
+	Source *git.URL `json:"source,omitempty"`
 
 	// Tag is a result image tag name.
 	Tag string `json:"tag,omitempty"`
 
 	// BuilderPullPolicy specifies when to pull the builder image
-	BuilderPullPolicy PullPolicy `json:"builder_pull_policy,omitempty"`
+	BuilderPullPolicy PullPolicy `json:"builderPullPolicy,omitempty"`
 
 	// PreviousImagePullPolicy specifies when to pull the previously build image
 	// when doing incremental build
-	PreviousImagePullPolicy PullPolicy `json:"previous_image_pull_policy,omitempty"`
+	PreviousImagePullPolicy PullPolicy `json:"previousImagePullPolicy,omitempty"`
 
 	// Incremental describes whether to try to perform incremental build.
 	Incremental bool `json:"incremental,omitempty"`
 
 	// IncrementalFromTag sets an alternative image tag to look for existing
 	// artifacts. Tag is used by default if this is not set.
-	IncrementalFromTag string `json:"incremental_from_tag,omitempty"`
+	IncrementalFromTag string `json:"incrementalFromTag,omitempty"`
 
 	// RemovePreviousImage describes if previous image should be removed after successful build.
 	// This applies only to incremental builds.
-	RemovePreviousImage bool `json:"remove_previous_image,omitempty"`
+	RemovePreviousImage bool `json:"removePreviousImage,omitempty"`
 
 	// Environment is a map of environment variables to be passed to the image.
 	Environment EnvironmentList `json:"environment,omitempty"`
 
 	// LabelNamespace provides the namespace under which the labels will be generated.
-	LabelNamespace string `json:"label_namespace,omitempty"`
+	LabelNamespace string `json:"labelNamespace,omitempty"`
 
 	// CallbackURL is a URL which is called upon successful build to inform about that fact.
-	CallbackURL string `json:"callback_url,omitempty"`
+	CallbackURL string `json:"callbackURL,omitempty"`
 
 	// ScriptsURL is a URL describing where to fetch the S2I scripts from during build process.
 	// This url can be a reference within the builder image if the scheme is specified as image://
-	ScriptsURL string `json:"scripts_url,omitempty"`
+	ScriptsURL string `json:"scriptsURL,omitempty"`
 
 	// Destination specifies a location where the untar operation will place its artifacts.
 	Destination string `json:"destination,omitempty"`
 
 	// WorkingDir describes temporary directory used for downloading sources, scripts and tar operations.
-	WorkingDir string `json:"working_dir,omitempty"`
+	WorkingDir string `json:"workingDir,omitempty"`
 
 	// WorkingSourceDir describes the subdirectory off of WorkingDir set up during the repo download
 	// that is later used as the root for ignore processing
-	WorkingSourceDir string `json:"working_source_dir,omitempty"`
+	WorkingSourceDir string `json:"workingSourceDir,omitempty"`
 
 	// LayeredBuild describes if this is build which layered scripts and sources on top of BuilderImage.
-	LayeredBuild bool `json:"layered_build,omitempty"`
+	LayeredBuild bool `json:"layeredBuild,omitempty"`
 
 	// Operate quietly. Progress and assemble script output are not reported, only fatal errors.
 	// (default: false).
@@ -164,23 +164,23 @@ type Config struct {
 	// ForceCopy results in only the file SCM plugin being used (i.e. no `git clone`); allows for empty directories to be included
 	// in resulting image (since git does not support that).
 	// (default: false).
-	ForceCopy bool `json:"force_copy,omitempty"`
+	ForceCopy bool `json:"forceCopy,omitempty"`
 
 	// Specify a relative directory inside the application repository that should
 	// be used as a root directory for the application.
-	ContextDir string `json:"context_dir,omitempty"`
+	ContextDir string `json:"contextDir,omitempty"`
 
 	// AllowedUIDs is a list of user ranges of users allowed to run the builder image.
 	// If a range is specified and the builder (or runtime) image uses a non-numeric
 	// user or a user that is outside the specified range, then the build fails.
-	AllowedUIDs user.RangeList `json:"allowed_uids,omitempty"`
+	AllowedUIDs user.RangeList `json:"allowedUIDs,omitempty"`
 
 	// AssembleUser specifies the user to run the assemble script in container
-	AssembleUser string `json:"assemble_user,omitempty"`
+	AssembleUser string `json:"assembleUser,omitempty"`
 
 	// RunImage will trigger a "docker run ..." invocation of the produced image so the user
 	// can see if it operates as he would expect
-	RunImage bool `json:"run_image,omitempty"`
+	RunImage bool `json:"runImage,omitempty"`
 
 	// Usage allows for properly shortcircuiting s2i logic when `s2i usage` is invoked
 	Usage bool `json:"usage,omitempty"`
@@ -192,31 +192,31 @@ type Config struct {
 
 	// CGroupLimits describes the cgroups limits that will be applied to any containers
 	// run by s2i.
-	CGroupLimits *CGroupLimits `json:"cgroup_limits,omitempty"`
+	CGroupLimits *CGroupLimits `json:"cGroupLimits,omitempty"`
 
 	// DropCapabilities contains a list of capabilities to drop when executing containers
-	DropCapabilities []string `json:"drop_capabilities,omitempty"`
+	DropCapabilities []string `json:"dropCapabilities,omitempty"`
 
 	// ScriptDownloadProxyConfig optionally specifies the http and https proxy
 	// to use when downloading scripts
-	ScriptDownloadProxyConfig *ProxyConfig `json:"script_download_proxy_config,omitempty"`
+	ScriptDownloadProxyConfig *ProxyConfig `json:"scriptDownloadProxyConfig,omitempty"`
 
 	// ExcludeRegExp contains a string representation of the regular expression desired for
 	// deciding which files to exclude from the tar stream
-	ExcludeRegExp string `json:"exclude_reg_exp,omitempty"`
+	ExcludeRegExp string `json:"excludeRegExp,omitempty"`
 
 	// BlockOnBuild prevents s2i from performing a docker build operation
 	// if one is necessary to execute ONBUILD commands, or to layer source code into
 	// the container for images that don't have a tar binary available, if the
 	// image contains ONBUILD commands that would be executed.
-	BlockOnBuild bool `json:"block_on_build,omitempty"`
+	BlockOnBuild bool `json:"blockOnBuild,omitempty"`
 
 	// HasOnBuild will be set to true if the builder image contains ONBUILD instructions
-	HasOnBuild bool `json:"has_on_build,omitempty"`
+	HasOnBuild bool `json:"hasOnBuild,omitempty"`
 
 	// BuildVolumes specifies a list of volumes to mount to container running the
 	// build.
-	BuildVolumes []string `json:"build_volumes,omitempty"`
+	BuildVolumes []string `json:"buildVolumes,omitempty"`
 
 	// Labels specify labels and their values to be applied to the resulting image. Label keys
 	// must have non-zero length. The labels defined here override generated labels in case
@@ -225,33 +225,33 @@ type Config struct {
 
 	// SourceInfo provides the info about the source to be built rather than relying
 	// on the Downloader to retrieve it.
-	SourceInfo *git.SourceInfo `json:"source_info,omitempty"`
+	SourceInfo *git.SourceInfo `json:"sourceInfo,omitempty"`
 
 	// SecurityOpt are passed as options to the docker containers launched by s2i.
-	SecurityOpt []string `json:"security_opt,omitempty"`
+	SecurityOpt []string `json:"securityOpt,omitempty"`
 
 	// KeepSymlinks indicates to copy symlinks as symlinks. Default behavior is to follow
 	// symlinks and copy files by content.
-	KeepSymlinks bool `json:"keep_symlinks,omitempty"`
+	KeepSymlinks bool `json:"keepSymlinks,omitempty"`
 
 	// AsDockerfile indicates the path where the Dockerfile should be written instead of building
 	// a new image.
-	AsDockerfile string `json:"as_dockerfile,omitempty"`
+	AsDockerfile string `json:"asDockerfile,omitempty"`
 
 	// ImageWorkDir is the default working directory for the builder image.
-	ImageWorkDir string `json:"image_work_dir,omitempty"`
+	ImageWorkDir string `json:"imageWorkDir,omitempty"`
 
 	// ImageScriptsURL is the default location to find the assemble/run scripts for a builder image.
 	// This url can be a reference within the builder image if the scheme is specified as image://
-	ImageScriptsURL string `json:"image_scripts_url,omitempty"`
+	ImageScriptsURL string `json:"imageScriptsURL,omitempty"`
 
 	// AddHost Add a line to /etc/hosts for test purpose or private use in LAN. Its format is host:IP,muliple hosts can be added  by using multiple --add-host
-	AddHost []string `json:"add_host,omitempty"`
+	AddHost []string `json:"addHost,omitempty"`
 
 	//Export Push the result image to specify image registry in tag
 	Export bool `json:"export,omitempty"`
 
-	SourceURL string `json:"source_url,omitempty"`
+	SourceURL string `json:"sourceURL,omitempty"`
 }
 
 // DeepCopyInto to implement k8s api requirement
@@ -303,8 +303,8 @@ func (c *Config) DeepCopy() *Config {
 
 // EnvironmentSpec specifies a single environment variable.
 type EnvironmentSpec struct {
-	Name  string
-	Value string
+	Name  string `json:"name,omitempty"`
+	Value string `json:"value,omitempty"`
 }
 
 // EnvironmentList contains list of environment variables.
@@ -318,22 +318,22 @@ type ProxyConfig struct {
 
 // CGroupLimits holds limits used to constrain container resources.
 type CGroupLimits struct {
-	MemoryLimitBytes int64
-	CPUShares        int64
-	CPUPeriod        int64
-	CPUQuota         int64
-	MemorySwap       int64
-	Parent           string
+	MemoryLimitBytes int64  `json:"memoryLimitBytes,omitempty"`
+	CPUShares        int64  `json:"cpuShares,omitempty"`
+	CPUPeriod        int64  `json:"cpuPeriod,omitempty"`
+	CPUQuota         int64  `json:"cpuQuota,omitempty"`
+	MemorySwap       int64  `json:"memorySwap,omitempty"`
+	Parent           string `json:"parent,omitempty"`
 }
 
 // VolumeSpec represents a single volume mount point.
 type VolumeSpec struct {
 	// Source is a reference to the volume source.
-	Source string
+	Source string `json:"source,omitempty"`
 	// Destination is the path to mount the volume to - absolute or relative.
-	Destination string
+	Destination string `json:"destination,omitempty"`
 	// Keep indicates if the mounted data should be kept in the final image.
-	Keep bool
+	Keep bool `json:"keep,omitempty"`
 }
 
 // VolumeList contains list of VolumeSpec.
@@ -342,31 +342,31 @@ type VolumeList []VolumeSpec
 // DockerConfig contains the configuration for a Docker connection.
 type DockerConfig struct {
 	// Endpoint is the docker network endpoint or socket
-	Endpoint string
+	Endpoint string `json:"endpoint,omitempty"`
 
 	// CertFile is the certificate file path for a TLS connection
-	CertFile string
+	CertFile string `json:"certFile,omitempty"`
 
 	// KeyFile is the key file path for a TLS connection
-	KeyFile string
+	KeyFile string `json:"keyFile,omitempty"`
 
 	// CAFile is the certificate authority file path for a TLS connection
-	CAFile string
+	CAFile string `json:"caFile,omitempty"`
 
 	// UseTLS indicates if TLS must be used
-	UseTLS bool
+	UseTLS bool `json:"useTLS,omitempty"`
 
 	// TLSVerify indicates if TLS peer must be verified
-	TLSVerify bool
+	TLSVerify bool `json:"tlsVerify,omitempty"`
 }
 
 // AuthConfig is our abstraction of the Registry authorization information for whatever
 // docker client we happen to be based on
 type AuthConfig struct {
-	Username      string `json:"username"`
-	Password      string `json:"password"`
+	Username      string `json:"username,omitempty"`
+	Password      string `json:"password,omitempty"`
 	Email         string `json:"email,omitempty"`
-	ServerAddress string `json:"server_address,omitempty"`
+	ServerAddress string `json:"serverAddress,omitempty"`
 }
 
 // ContainerConfig is the abstraction of the docker client provider (formerly go-dockerclient, now either
