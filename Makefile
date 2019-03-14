@@ -5,3 +5,5 @@ run:
 	S2I_CONFIG_PATH=test/config.json go run ./cmd/main.go
 image:
 	docker build . -t ${IMG}
+push: image
+	docker push ${IMG}
