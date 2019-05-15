@@ -6,7 +6,7 @@ import (
 	"regexp"
 	"sync"
 
-	"github.com/magicsong/s2irun/pkg/tar"
+	"github.com/kubesphere/s2irun/pkg/tar"
 )
 
 // FakeTar provides a fake UNIX tar interface

@@ -4,7 +4,7 @@ import (
 	"net/url"
 	"sync"
 
-	"github.com/magicsong/s2irun/pkg/scm/git"
+	"github.com/kubesphere/s2irun/pkg/scm/git"
 )
 
 // FakeDownloader provides a fake downloader interface

@@ -1,7 +1,7 @@
 package test
 
 import (
-	"github.com/magicsong/s2irun/pkg/api"
+	"github.com/kubesphere/s2irun/pkg/api"
 )
 
 // FakeInstaller provides a fake installer

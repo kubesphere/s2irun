@@ -3,7 +3,7 @@ package test
 import (
 	"os"
 
-	"github.com/magicsong/s2irun/pkg/scm/git"
+	"github.com/kubesphere/s2irun/pkg/scm/git"
 )
 
 // FakeGit provides a fake Git

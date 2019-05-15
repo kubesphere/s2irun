@@ -6,7 +6,7 @@ import (
 	"reflect"
 	"testing"
 
-	testfs "github.com/magicsong/s2irun/pkg/test/fs"
+	testfs "github.com/kubesphere/s2irun/pkg/test/fs"
 )
 
 func helper(t *testing.T, keepSymlinks bool) {

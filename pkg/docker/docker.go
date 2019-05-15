@@ -27,13 +27,13 @@ import (
 	"github.com/docker/go-connections/tlsconfig"
 	"golang.org/x/net/context"
 
-	"github.com/magicsong/s2irun/pkg/api"
-	"github.com/magicsong/s2irun/pkg/api/constants"
-	s2ierr "github.com/magicsong/s2irun/pkg/errors"
-	s2itar "github.com/magicsong/s2irun/pkg/tar"
-	"github.com/magicsong/s2irun/pkg/utils"
-	"github.com/magicsong/s2irun/pkg/utils/fs"
-	"github.com/magicsong/s2irun/pkg/utils/interrupt"
+	"github.com/kubesphere/s2irun/pkg/api"
+	"github.com/kubesphere/s2irun/pkg/api/constants"
+	s2ierr "github.com/kubesphere/s2irun/pkg/errors"
+	s2itar "github.com/kubesphere/s2irun/pkg/tar"
+	"github.com/kubesphere/s2irun/pkg/utils"
+	"github.com/kubesphere/s2irun/pkg/utils/fs"
+	"github.com/kubesphere/s2irun/pkg/utils/interrupt"
 )
 
 const (

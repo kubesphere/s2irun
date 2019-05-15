@@ -5,8 +5,8 @@ import (
 	"os"
 	"path/filepath"
 
-	"github.com/magicsong/s2irun/pkg/utils/cmd"
-	"github.com/magicsong/s2irun/pkg/utils/cygpath"
+	"github.com/kubesphere/s2irun/pkg/utils/cmd"
+	"github.com/kubesphere/s2irun/pkg/utils/cygpath"
 )
 
 // CreateLocalGitDirectory creates a git directory with a commit

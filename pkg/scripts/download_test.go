@@ -10,7 +10,7 @@ import (
 	"strings"
 	"testing"
 
-	s2ierr "github.com/magicsong/s2irun/pkg/errors"
+	s2ierr "github.com/kubesphere/s2irun/pkg/errors"
 )
 
 type FakeHTTPGet struct {

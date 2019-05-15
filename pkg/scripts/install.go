@@ -6,11 +6,11 @@ import (
 	"path/filepath"
 	"strings"
 
-	"github.com/magicsong/s2irun/pkg/api"
-	"github.com/magicsong/s2irun/pkg/api/constants"
-	"github.com/magicsong/s2irun/pkg/docker"
-	s2ierr "github.com/magicsong/s2irun/pkg/errors"
-	"github.com/magicsong/s2irun/pkg/utils/fs"
+	"github.com/kubesphere/s2irun/pkg/api"
+	"github.com/kubesphere/s2irun/pkg/api/constants"
+	"github.com/kubesphere/s2irun/pkg/docker"
+	s2ierr "github.com/kubesphere/s2irun/pkg/errors"
+	"github.com/kubesphere/s2irun/pkg/utils/fs"
 )
 
 // Installer interface is responsible for installing scripts needed to run the

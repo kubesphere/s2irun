@@ -5,10 +5,10 @@ import (
 
 	"github.com/golang/glog"
 
-	"github.com/magicsong/s2irun/pkg/api"
-	"github.com/magicsong/s2irun/pkg/api/constants"
-	"github.com/magicsong/s2irun/pkg/scm/git"
-	"github.com/magicsong/s2irun/pkg/utils/fs"
+	"github.com/kubesphere/s2irun/pkg/api"
+	"github.com/kubesphere/s2irun/pkg/api/constants"
+	"github.com/kubesphere/s2irun/pkg/scm/git"
+	"github.com/kubesphere/s2irun/pkg/utils/fs"
 )
 
 // Clone knows how to clone a Git repository.

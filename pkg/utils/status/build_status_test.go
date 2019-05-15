@@ -4,7 +4,7 @@ import (
 	"testing"
 	"time"
 
-	"github.com/magicsong/s2irun/pkg/api"
+	"github.com/kubesphere/s2irun/pkg/api"
 )
 
 func TestNewFailureReason(t *testing.T) {

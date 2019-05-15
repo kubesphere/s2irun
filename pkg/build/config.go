@@ -4,10 +4,10 @@ import (
 	"errors"
 	"fmt"
 
-	"github.com/magicsong/s2irun/pkg/api"
-	"github.com/magicsong/s2irun/pkg/api/constants"
-	"github.com/magicsong/s2irun/pkg/docker"
-	"github.com/magicsong/s2irun/pkg/scm/git"
+	"github.com/kubesphere/s2irun/pkg/api"
+	"github.com/kubesphere/s2irun/pkg/api/constants"
+	"github.com/kubesphere/s2irun/pkg/docker"
+	"github.com/kubesphere/s2irun/pkg/scm/git"
 )
 
 // GenerateConfigFromLabels generates the S2I Config struct from the Docker

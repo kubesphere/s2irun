@@ -12,9 +12,9 @@ import (
 	"sync"
 	"time"
 
-	utilglog "github.com/magicsong/s2irun/pkg/utils/glog"
+	utilglog "github.com/kubesphere/s2irun/pkg/utils/glog"
 
-	s2ierr "github.com/magicsong/s2irun/pkg/errors"
+	s2ierr "github.com/kubesphere/s2irun/pkg/errors"
 )
 
 var glog = utilglog.StderrLog

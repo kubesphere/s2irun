@@ -5,8 +5,8 @@ import (
 	"reflect"
 	"testing"
 
-	"github.com/magicsong/s2irun/pkg/api"
-	"github.com/magicsong/s2irun/pkg/api/constants"
+	"github.com/kubesphere/s2irun/pkg/api"
+	"github.com/kubesphere/s2irun/pkg/api/constants"
 )
 
 type FakeUsageHandler struct {

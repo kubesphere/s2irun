@@ -1,4 +1,4 @@
-package: github.com/magicsong/s2irun
+package: github.com/kubesphere/s2irun
 import:
 - package: github.com/Azure/go-ansiterm
   version: 19f72df4d05d31cbe1c56bfc8045c96babff6c7e

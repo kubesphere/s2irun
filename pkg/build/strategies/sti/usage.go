@@ -1,11 +1,11 @@
 package sti
 
 import (
-	"github.com/magicsong/s2irun/pkg/api"
-	"github.com/magicsong/s2irun/pkg/api/constants"
-	"github.com/magicsong/s2irun/pkg/build"
-	"github.com/magicsong/s2irun/pkg/docker"
-	"github.com/magicsong/s2irun/pkg/utils/fs"
+	"github.com/kubesphere/s2irun/pkg/api"
+	"github.com/kubesphere/s2irun/pkg/api/constants"
+	"github.com/kubesphere/s2irun/pkg/build"
+	"github.com/kubesphere/s2irun/pkg/docker"
+	"github.com/kubesphere/s2irun/pkg/utils/fs"
 )
 
 // UsageHandler handles a config to display usage

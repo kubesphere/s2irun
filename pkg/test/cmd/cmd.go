@@ -5,7 +5,7 @@ import (
 	"io"
 	"io/ioutil"
 
-	"github.com/magicsong/s2irun/pkg/utils/cmd"
+	"github.com/kubesphere/s2irun/pkg/utils/cmd"
 )
 
 // FakeCmdRunner provider the fake command runner

@@ -5,8 +5,8 @@ import (
 	"strings"
 	"testing"
 
-	testfs "github.com/magicsong/s2irun/pkg/test/fs"
-	"github.com/magicsong/s2irun/pkg/utils/fs"
+	testfs "github.com/kubesphere/s2irun/pkg/test/fs"
+	"github.com/kubesphere/s2irun/pkg/utils/fs"
 )
 
 func TestGuessEntrypoint(t *testing.T) {

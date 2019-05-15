@@ -4,7 +4,7 @@ import (
 	"flag"
 	"os"
 
-	"github.com/magicsong/s2irun/pkg/run"
+	"github.com/kubesphere/s2irun/pkg/run"
 )
 
 func main() {

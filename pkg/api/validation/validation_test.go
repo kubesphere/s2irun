@@ -4,8 +4,8 @@ import (
 	"reflect"
 	"testing"
 
-	"github.com/magicsong/s2irun/pkg/api"
-	"github.com/magicsong/s2irun/pkg/scm/git"
+	"github.com/kubesphere/s2irun/pkg/api"
+	"github.com/kubesphere/s2irun/pkg/scm/git"
 )
 
 func TestValidation(t *testing.T) {

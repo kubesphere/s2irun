@@ -7,12 +7,12 @@ import (
 	"strings"
 	"testing"
 
-	"github.com/magicsong/s2irun/pkg/api"
-	"github.com/magicsong/s2irun/pkg/docker"
-	"github.com/magicsong/s2irun/pkg/scm/git"
-	"github.com/magicsong/s2irun/pkg/test"
-	testfs "github.com/magicsong/s2irun/pkg/test/fs"
-	"github.com/magicsong/s2irun/pkg/utils/fs"
+	"github.com/kubesphere/s2irun/pkg/api"
+	"github.com/kubesphere/s2irun/pkg/docker"
+	"github.com/kubesphere/s2irun/pkg/scm/git"
+	"github.com/kubesphere/s2irun/pkg/test"
+	testfs "github.com/kubesphere/s2irun/pkg/test/fs"
+	"github.com/kubesphere/s2irun/pkg/utils/fs"
 	"github.com/docker/docker/builder/dockerfile"
 )
 

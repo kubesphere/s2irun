@@ -3,8 +3,8 @@ package docker
 import (
 	"testing"
 
-	"github.com/magicsong/s2irun/pkg/api/constants"
-	"github.com/magicsong/s2irun/pkg/utils/user"
+	"github.com/kubesphere/s2irun/pkg/api/constants"
+	"github.com/kubesphere/s2irun/pkg/utils/user"
 )
 
 func rangeList(str string) *user.RangeList {

@@ -5,10 +5,10 @@ import (
 	"reflect"
 	"testing"
 
-	"github.com/magicsong/s2irun/pkg/api"
-	"github.com/magicsong/s2irun/pkg/scm/git"
-	testcmd "github.com/magicsong/s2irun/pkg/test/cmd"
-	testfs "github.com/magicsong/s2irun/pkg/test/fs"
+	"github.com/kubesphere/s2irun/pkg/api"
+	"github.com/kubesphere/s2irun/pkg/scm/git"
+	testcmd "github.com/kubesphere/s2irun/pkg/test/cmd"
+	testfs "github.com/kubesphere/s2irun/pkg/test/fs"
 )
 
 func TestCloneWithContext(t *testing.T) {

@@ -8,9 +8,9 @@ import (
 	"strings"
 	"text/tabwriter"
 
-	"github.com/magicsong/s2irun/pkg/api"
-	"github.com/magicsong/s2irun/pkg/build"
-	"github.com/magicsong/s2irun/pkg/docker"
+	"github.com/kubesphere/s2irun/pkg/api"
+	"github.com/kubesphere/s2irun/pkg/build"
+	"github.com/kubesphere/s2irun/pkg/docker"
 )
 
 // Config returns the Config object in nice readable, tabbed format.

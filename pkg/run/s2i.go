@@ -6,15 +6,15 @@ import (
 	"fmt"
 	"os"
 
-	"github.com/magicsong/s2irun/pkg/scm/git"
+	"github.com/kubesphere/s2irun/pkg/scm/git"
 
-	"github.com/magicsong/s2irun/pkg/api"
-	"github.com/magicsong/s2irun/pkg/api/describe"
-	"github.com/magicsong/s2irun/pkg/api/validation"
-	"github.com/magicsong/s2irun/pkg/build/strategies"
-	"github.com/magicsong/s2irun/pkg/docker"
-	s2ierr "github.com/magicsong/s2irun/pkg/errors"
-	utilglog "github.com/magicsong/s2irun/pkg/utils/glog"
+	"github.com/kubesphere/s2irun/pkg/api"
+	"github.com/kubesphere/s2irun/pkg/api/describe"
+	"github.com/kubesphere/s2irun/pkg/api/validation"
+	"github.com/kubesphere/s2irun/pkg/build/strategies"
+	"github.com/kubesphere/s2irun/pkg/docker"
+	s2ierr "github.com/kubesphere/s2irun/pkg/errors"
+	utilglog "github.com/kubesphere/s2irun/pkg/utils/glog"
 )
 
 const (
