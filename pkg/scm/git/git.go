@@ -2,7 +2,6 @@ package git
 
 import (
 	"bufio"
-	"bytes"
 	"fmt"
 	"os"
 	"os/exec"
@@ -48,6 +47,8 @@ func cloneConfigToArgs(opts CloneConfig) []string {
 	result := []string{}
 	if opts.Quiet {
 		result = append(result, "--quiet")
+	} else {
+		result = append(result, "--progress")
 	}
 	if opts.Recursive {
 		result = append(result, "--recursive")
@@ -183,11 +184,13 @@ func (h *stiGit) Clone(src *URL, target string, c CloneConfig) error {
 
 	cloneArgs := append([]string{"clone"}, cloneConfigToArgs(c)...)
 	cloneArgs = append(cloneArgs, []string{source.StringNoFragment(), target}...)
-	stderr := &bytes.Buffer{}
-	opts := cmd.CommandOpts{Stderr: stderr}
+	opts := cmd.CommandOpts{
+		Stderr: os.Stderr,
+		Stdout: os.Stdout,
+	}
 	err = h.RunWithOptions(opts, "git", cloneArgs...)
 	if err != nil {
-		glog.Errorf("Clone failed: source %s, target %s, with output %q", source, target, stderr.String())
+		glog.Errorf("Clone failed: source %s, target %s, with output %q", source, target, err)
 		return err
 	}
 	return nil

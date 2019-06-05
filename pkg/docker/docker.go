@@ -581,7 +581,9 @@ func (d *stiDocker) PullImage(name string) (*api.Image, error) {
 					return msg.Error
 				}
 				if msg.Progress != nil {
-					glog.V(4).Infof("pulling image %s: %s", name, msg.Progress.String())
+					if msg.Progress.Current != 0 {
+						glog.V(4).Infof("pulling image %s: %s", name, msg.Progress.String())
+					}
 				}
 			}
 		})
@@ -668,8 +670,11 @@ func (d *stiDocker) PushImage(name string) error {
 				if msg.Error != nil {
 					return msg.Error
 				}
+
 				if msg.Progress != nil {
-					glog.V(3).Infof("pushing image %s: %s", name, msg.Progress.String())
+					if msg.Progress.Current != 0 {
+						glog.V(4).Infof("pushing image %s: %s", name, msg.Progress.String())
+					}
 				}
 			}
 		})
@@ -1183,7 +1188,7 @@ func (d *stiDocker) CommitContainer(opts CommitContainerOptions) (string, error)
 			User:       opts.User,
 		}
 		dockerOpts.Config = &config
-		glog.V(2).Infof("Committing container with dockerOpts: %+v, config: %+v", dockerOpts, *utils.SafeForLoggingContainerConfig(&config))
+		glog.V(9).Infof("Committing container with dockerOpts: %+v, config: %+v", dockerOpts, *utils.SafeForLoggingContainerConfig(&config))
 	}
 
 	resp, err := d.client.ContainerCommit(context.Background(), opts.ContainerID, dockerOpts)

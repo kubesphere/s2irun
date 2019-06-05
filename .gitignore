@@ -15,3 +15,4 @@ vendor/github.com/docker/hack
 vendor/github.com/docker/project
 
 _output
+.idea/*

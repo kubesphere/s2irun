@@ -386,7 +386,6 @@ type Image struct {
 
 // Result structure contains information from build process.
 type Result struct {
-
 	// Success describes whether the build was successful.
 	Success bool
 
@@ -505,7 +504,6 @@ type FailureReason struct {
 
 // InstallResult structure describes the result of install operation
 type InstallResult struct {
-
 	// Script describes which script this result refers to
 	Script string
 
