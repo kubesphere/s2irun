@@ -248,10 +248,14 @@ type Config struct {
 	// AddHost Add a line to /etc/hosts for test purpose or private use in LAN. Its format is host:IP,muliple hosts can be added  by using multiple --add-host
 	AddHost []string `json:"addHost,omitempty"`
 
-	//Export Push the result image to specify image registry in tag
+	// Export Push the result image to specify image registry in tag
 	Export bool `json:"export,omitempty"`
 
+	// SourceURL is  url of the codes such as https://github.com/a/b.git
 	SourceURL string `json:"sourceURL,omitempty"`
+
+	// The RevisionId is a branch name or a SHA-1 hash of every important thing about the commit
+	RevisionId string `json:"revisionId,omitempty"`
 }
 
 // DeepCopyInto to implement k8s api requirement

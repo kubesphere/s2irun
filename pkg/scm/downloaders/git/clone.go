@@ -23,9 +23,9 @@ func (c *Clone) Download(config *api.Config) (*git.SourceInfo, error) {
 	targetSourceDir := filepath.Join(config.WorkingDir, constants.Source)
 	config.WorkingSourceDir = targetSourceDir
 
-	ref := config.Source.URL.Fragment
-	if ref == "" {
-		ref = "HEAD"
+	RevisionId := config.RevisionId
+	if RevisionId == "" {
+		RevisionId = "HEAD"
 	}
 
 	if len(config.ContextDir) > 0 {
@@ -48,17 +48,18 @@ func (c *Clone) Download(config *api.Config) (*git.SourceInfo, error) {
 		return nil, err
 	}
 
-	err = c.Checkout(targetSourceDir, ref)
+	err = c.Checkout(targetSourceDir, RevisionId)
 	if err != nil {
 		return nil, err
 	}
-	glog.V(1).Infof("Checked out %q", ref)
+
+	glog.V(0).Infof("Checked out to %q", RevisionId)
 	if !config.IgnoreSubmodules {
 		err = c.SubmoduleUpdate(targetSourceDir, true, true)
 		if err != nil {
 			return nil, err
 		}
-		glog.V(1).Infof("Updated submodules for %q", ref)
+		glog.V(0).Infof("Updated submodules for %q", RevisionId)
 	}
 
 	info := c.GetInfo(targetSourceDir)

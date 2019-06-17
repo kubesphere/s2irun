@@ -2,10 +2,11 @@
     "displayName":"For Test",
     "sourceUrl":"https://github.com/sclorg/django-ex",
     "builderImage":"centos/python-35-centos7",
-    "tag":"kubesphere/hello-python",
+    "tag":"kubespheredev/hello-python",
     "export":false,
     "pushAuthentication":{
-        "username":"kubesphere",
-        "password":"song123docker"
-    }
+        "username":"",
+        "password":""
+    },
+    "revisionId":" staging"
 }

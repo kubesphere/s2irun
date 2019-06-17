@@ -582,7 +582,7 @@ func (d *stiDocker) PullImage(name string) (*api.Image, error) {
 				}
 				if msg.Progress != nil {
 					if msg.Progress.Current != 0 {
-						glog.V(4).Infof("pulling image %s: %s", name, msg.Progress.String())
+						glog.V(0).Infof("pulling image %s: %s", name, msg.Progress.String())
 					}
 				}
 			}
@@ -673,7 +673,7 @@ func (d *stiDocker) PushImage(name string) error {
 
 				if msg.Progress != nil {
 					if msg.Progress.Current != 0 {
-						glog.V(4).Infof("pushing image %s: %s", name, msg.Progress.String())
+						glog.V(0).Infof("pushing image %s: %s", name, msg.Progress.String())
 					}
 				}
 			}

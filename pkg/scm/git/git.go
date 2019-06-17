@@ -203,10 +203,10 @@ func (h *stiGit) Checkout(repo, ref string) error {
 		Stderr: os.Stderr,
 		Dir:    repo,
 	}
-	if log.V(1) {
+	if log.V(4) {
 		return h.RunWithOptions(opts, "git", "checkout", ref)
 	}
-	return h.RunWithOptions(opts, "git", "checkout", "--quiet", ref)
+	return h.RunWithOptions(opts, "git", "checkout", ref)
 }
 
 // SubmoduleInit initializes/clones submodules
