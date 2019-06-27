@@ -4,7 +4,7 @@
 
 ## 介绍
 
-[S2I](https://github.com/openshift/source-to-image)( source to image )是一款由Openshift开发、自动将代码容器化的工具，通过预置的模板来支持多种语言和框架，诸如Java，Nodejs, python等等。S2IRun可以将S2I容器化，以便可以在任何容器环境中运行，也可以更好的运行在kubernetes中。
+[S2I](https://github.com/openshift/source-to-image)( source to image )是一款由Openshift开发、自动将代码容器化的工具，通过预置的模板来支持多种语言和框架，诸如Java，Nodejs, python等等。S2IRun则是执行构建过程的主体，可以将S2I容器化，以便可以在任何容器环境中运行，也可以更好的运行在kubernetes中。
 
 S2IRun主要的工作就是根据用户配置的参数，去执行拉取代码、生成执行文件、构建镜像、推送镜像等等相关操作。对于用户而言，只需提供代码仓库地址等相关配置参数即可，也不需要编写Dockerfile，从源码到最终镜像之间的所有操作都由S2IRun自动完成。
 
