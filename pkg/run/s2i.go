@@ -5,15 +5,13 @@ import (
 	"encoding/json"
 	"fmt"
 	"os"
-
-	"github.com/kubesphere/s2irun/pkg/scm/git"
-
 	"github.com/kubesphere/s2irun/pkg/api"
 	"github.com/kubesphere/s2irun/pkg/api/describe"
 	"github.com/kubesphere/s2irun/pkg/api/validation"
 	"github.com/kubesphere/s2irun/pkg/build/strategies"
 	"github.com/kubesphere/s2irun/pkg/docker"
 	s2ierr "github.com/kubesphere/s2irun/pkg/errors"
+	"github.com/kubesphere/s2irun/pkg/scm/git"
 	utilglog "github.com/kubesphere/s2irun/pkg/utils/glog"
 )
 
@@ -114,7 +112,11 @@ func App() int {
 		glog.Errorf("SourceURL is illegal, please check the error:\n%v", err)
 		return 1
 	}
-	err = S2I(apiConfig)
+	apiConfig.Tag, err = api.Parse(apiConfig.Tag, apiConfig.PushAuthentication.ServerAddress)
+	if err != nil {
+		glog.Errorf("There are some errors in image name, please check the error:\n%v", err)
+		return 1
+	}
 	if err != nil {
 		glog.Errorf("Build failed, please check the error:\n%v", err)
 		return 1

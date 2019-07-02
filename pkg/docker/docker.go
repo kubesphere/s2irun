@@ -40,8 +40,6 @@ const (
 	// DefaultDestination is the destination where the artifacts will be placed
 	// if DestinationLabel was not specified.
 	DefaultDestination = "/tmp"
-	// DefaultTag is the image tag, being applied if none is specified.
-	DefaultTag = "latest"
 
 	// DefaultDockerTimeout specifies a timeout for Docker API calls. When this
 	// timeout is reached, certain Docker API calls might error out.
@@ -668,6 +666,7 @@ func (d *stiDocker) PushImage(name string) error {
 				if msg.Error != nil {
 					return msg.Error
 				}
+
 				if msg.Progress != nil {
 					glog.V(3).Infof("pushing image %s: %s", name, msg.Progress.String())
 				}
@@ -733,7 +732,7 @@ func getImageName(name string) string {
 	if len(tag) == 0 && len(id) == 0 {
 		//_, tag, _ := parseRepositoryTag(name)
 		//if len(tag) == 0 {
-		return strings.Join([]string{name, DefaultTag}, ":")
+		return strings.Join([]string{name, api.DefaultTag}, ":")
 	}
 
 	return name
