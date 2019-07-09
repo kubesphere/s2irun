@@ -17,7 +17,7 @@ RUN apk update && apk upgrade && \
     
 ENV S2I_CONFIG_PATH=/root/data/config.json
 COPY --from=builder /go/src/github.com/kubesphere/s2irun/builder .
-CMD ["./builder"]
+CMD ["./builder", "-v=4", "-logtostderr=true"]
 
 
 
