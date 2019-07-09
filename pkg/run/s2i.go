@@ -66,7 +66,7 @@ func S2I(cfg *api.Config) error {
 		return err
 	}
 
-	glog.V(2).Infof("\n%s\n", describe.Config(client, cfg))
+	glog.V(9).Infof("\n%s\n", describe.Config(client, cfg))
 
 	builder, _, err := strategies.GetStrategy(client, cfg)
 	s2ierr.CheckError(err)

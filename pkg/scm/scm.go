@@ -17,7 +17,7 @@ var glog = utilglog.StderrLog
 // DownloaderForSource determines what SCM plugin should be used for downloading
 // the sources from the repository.
 func DownloaderForSource(fs fs.FileSystem, s *git.URL, forceCopy bool) (build.Downloader, error) {
-	glog.V(4).Infof("DownloadForSource %s", s)
+	glog.V(9).Infof("DownloadForSource %s", s)
 
 	if s == nil {
 		return &empty.Noop{}, nil

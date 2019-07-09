@@ -213,7 +213,7 @@ func (builder *STI) Build(config *api.Config) (*api.Result, error) {
 		glog.V(1).Info("Clean build will be performed")
 	}
 
-	glog.V(2).Infof("Performing source build from %s", config.Source)
+	glog.V(9).Infof("Performing source build from %s", config.Source)
 	if builder.incremental {
 		if err := builder.artifacts.Save(config); err != nil {
 			glog.Warning("Clean build will be performed because of error saving previous build artifacts")
