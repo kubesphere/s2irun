@@ -117,6 +117,7 @@ func App() int {
 		glog.Errorf("There are some errors in image name, please check the error:\n%v", err)
 		return 1
 	}
+	err = S2I(apiConfig)
 	if err != nil {
 		glog.Errorf("Build failed, please check the error:\n%v", err)
 		return 1
