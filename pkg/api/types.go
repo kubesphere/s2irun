@@ -3,11 +3,13 @@ package api
 import (
 	"errors"
 	"fmt"
+	"github.com/opencontainers/go-digest"
 	"net/url"
 	"path/filepath"
 	"strings"
 	"time"
 
+	"github.com/docker/distribution/reference"
 	"github.com/kubesphere/s2irun/pkg/scm/git"
 	utilglog "github.com/kubesphere/s2irun/pkg/utils/glog"
 	"github.com/kubesphere/s2irun/pkg/utils/user"
@@ -38,6 +40,11 @@ const (
 	// DefaultPreviousImagePullPolicy specifies policy for pulling the previously
 	// build Docker image when doing incremental build
 	DefaultPreviousImagePullPolicy = PullIfNotPresent
+
+	// DefaultTag is the image tag, being applied if none is specified.
+	DefaultTag = "latest"
+	// DefaultHub is the default image repository.
+	DefaultHub = "docker.io"
 )
 
 // Config contains essential fields for performing build.
@@ -680,4 +687,58 @@ func (l *VolumeList) AsBinds() []string {
 		result[index] = strings.Join([]string{v.Source, v.Destination}, ":")
 	}
 	return result
+}
+
+func Parse(originalName, serverAddress string) (ref string, err error) {
+	matches := reference.ReferenceRegexp.FindStringSubmatch(originalName)
+	if matches == nil {
+		if originalName == "" {
+			return "", reference.ErrNameEmpty
+		}
+		if reference.ReferenceRegexp.FindStringSubmatch(strings.ToLower(originalName)) != nil {
+			return "", reference.ErrNameContainsUppercase
+		}
+		return "", reference.ErrReferenceInvalidFormat
+	}
+
+	if len(matches[1]) > reference.NameTotalLengthMax {
+		return "", reference.ErrNameTooLong
+	}
+
+	imageName := getImageName(matches[1], serverAddress)
+
+	if matches[3] != "" {
+		var err error
+		digest, err := digest.Parse(matches[3])
+		if err != nil {
+			return "", err
+		}
+		fullImageName := strings.Join([]string{imageName, digest.String()}, "@")
+		return fullImageName, nil
+	}
+
+	if matches[2] == "" {
+		matches[2] = DefaultTag
+	}
+
+	fullImageName := strings.Join([]string{imageName, matches[2]}, ":")
+	return fullImageName, nil
+}
+
+func getImageName(name, serverAddress string) (imageName string) {
+	count := strings.Count(name, "/")
+	if count == 1 {
+		if serverAddress == "" {
+			serverAddress = DefaultHub
+		}
+		imageName = strings.Join([]string{serverAddress, name}, "/")
+
+	} else {
+		parts := strings.Split(name, "/")
+		if serverAddress == "" {
+			serverAddress = parts[0]
+		}
+		imageName = strings.Join([]string{serverAddress, parts[1], parts[2]}, "/")
+	}
+	return imageName
 }

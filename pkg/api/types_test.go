@@ -82,3 +82,28 @@ func TestEnvironmentSet(t *testing.T) {
 		}
 	}
 }
+
+func TestGetFullImageName(t *testing.T) {
+	type runtest struct {
+		imageName     string
+		serverAddress string
+		expected      string
+	}
+	tests := []runtest{
+		{"test/image", "test-harbor.io", "test-harbor.io/test/image:latest"},
+		{"test/image:latest", "test-harbor.io", "test-harbor.io/test/image:latest"},
+		{"test-harbor.io/test/image:tag", "test-harbor.io", "test-harbor.io/test/image:tag"},
+		{"repository/test/image", "test-harbor.io", "test-harbor.io/test/image:latest"},
+		{"repository/test/image:latest", "", "repository/test/image:latest"},
+		{"test/image:tag", "", "docker.io/test/image:tag"},
+		{"test/image", "test-harbor.io:3333", "test-harbor.io:3333/test/image:latest"},
+		{"test-harbor.io:3333/test/image", "", "test-harbor.io:3333/test/image:latest"},
+	}
+
+	for _, tc := range tests {
+		if res, err := Parse(tc.imageName, tc.serverAddress); err != nil || res != tc.expected {
+			t.Errorf(tc.imageName)
+			t.Errorf("Expected image name %s, but got %s", tc.expected, res)
+		}
+	}
+}
