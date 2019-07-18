@@ -24,6 +24,7 @@ import (
 	dockerapi "github.com/docker/docker/client"
 	dockermessage "github.com/docker/docker/pkg/jsonmessage"
 	dockerstdcopy "github.com/docker/docker/pkg/stdcopy"
+	"github.com/docker/docker/api/types/mount"
 	"github.com/docker/go-connections/tlsconfig"
 	"golang.org/x/net/context"
 
@@ -201,6 +202,8 @@ type RunContainerOptions struct {
 	CommandExplicit []string
 	// SecurityOpt is passed through as security options to the underlying container.
 	SecurityOpt []string
+	// Mounts specs used by the container
+	Mounts []mount.Mount `json:",omitempty"`
 }
 
 // asDockerConfig converts a RunContainerOptions into a Config understood by the
@@ -227,6 +230,7 @@ func (rco RunContainerOptions) asDockerHostConfig() dockercontainer.HostConfig {
 		Binds:           rco.Binds,
 		ExtraHosts:      rco.AddHost,
 		SecurityOpt:     rco.SecurityOpt,
+		Mounts:          rco.Mounts,
 	}
 	if rco.CGroupLimits != nil {
 		hostConfig.Resources.Memory = rco.CGroupLimits.MemoryLimitBytes
