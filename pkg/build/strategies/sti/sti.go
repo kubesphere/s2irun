@@ -327,19 +327,6 @@ func (builder *STI) Prepare(config *api.Config) error {
 				}
 			}
 		}
-
-		//if mount volume not exist, will create it.
-		for _, m := range config.Mounts {
-			glog.V(4).Infof("mount volume %q:%q", m.Source, m.Target)
-			if exists, _ := PathExists(m.Source); exists == false {
-				glog.V(4).Infof("Creating directory %q in host", m.Source)
-				err := os.Mkdir(m.Source, os.ModePerm)
-				if err != nil {
-					return err
-				}
-			}
-		}
-
 		// we're validating values here to be sure that we're handling both of the cases of the invocation:
 		// from main() and as a method from OpenShift
 		for _, volumeSpec := range builder.config.RuntimeArtifacts {
@@ -439,18 +426,6 @@ func (builder *STI) Prepare(config *api.Config) error {
 	// see if there is a .s2iignore file, and if so, read in the patterns an then
 	// search and delete on
 	return builder.ignorer.Ignore(config)
-}
-
-// Check path exists or not
-func PathExists(path string) (bool, error) {
-	_, err := os.Stat(path)
-	if err == nil {
-		return true, nil
-	}
-	if os.IsNotExist(err) {
-		return false, nil
-	}
-	return false, err
 }
 
 // SetScripts allows to override default required and optional scripts
@@ -583,7 +558,6 @@ func (builder *STI) Save(config *api.Config) (err error) {
 		Binds:           config.BuildVolumes,
 		SecurityOpt:     config.SecurityOpt,
 		AddHost:         config.AddHost,
-		Mounts:          config.Mounts,
 	}
 
 	dockerpkg.StreamContainerIO(errReader, nil, func(s string) { glog.Info(s) })
@@ -643,7 +617,6 @@ func (builder *STI) Execute(command string, user string, config *api.Config) err
 		Binds:           config.BuildVolumes,
 		SecurityOpt:     config.SecurityOpt,
 		AddHost:         config.AddHost,
-		Mounts:          config.Mounts,
 	}
 
 	// If there are injections specified, override the original assemble script
