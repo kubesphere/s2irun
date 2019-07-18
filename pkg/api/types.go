@@ -13,6 +13,7 @@ import (
 	"github.com/kubesphere/s2irun/pkg/scm/git"
 	utilglog "github.com/kubesphere/s2irun/pkg/utils/glog"
 	"github.com/kubesphere/s2irun/pkg/utils/user"
+	"github.com/docker/docker/api/types/mount"
 )
 
 var glog = utilglog.StderrLog
@@ -263,6 +264,9 @@ type Config struct {
 
 	// The RevisionId is a branch name or a SHA-1 hash of every important thing about the commit
 	RevisionId string `json:"revisionId,omitempty"`
+
+	// Mounts specs used by the container
+	Mounts []mount.Mount `json:"mounts,omitempty"`
 }
 
 // DeepCopyInto to implement k8s api requirement
