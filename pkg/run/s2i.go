@@ -4,7 +4,6 @@ import (
 	"bytes"
 	"encoding/json"
 	"fmt"
-	"os"
 	"github.com/kubesphere/s2irun/pkg/api"
 	"github.com/kubesphere/s2irun/pkg/api/describe"
 	"github.com/kubesphere/s2irun/pkg/api/validation"
@@ -13,6 +12,7 @@ import (
 	s2ierr "github.com/kubesphere/s2irun/pkg/errors"
 	"github.com/kubesphere/s2irun/pkg/scm/git"
 	utilglog "github.com/kubesphere/s2irun/pkg/utils/glog"
+	"os"
 )
 
 const (
@@ -107,7 +107,7 @@ func App() int {
 		glog.Errorf("There are some errors in config file, please check the error:\n%v", err)
 		return 1
 	}
-	apiConfig.Source, err = git.Parse(apiConfig.SourceURL)
+	apiConfig.Source, err = git.Parse(apiConfig.SourceURL, apiConfig.IsBinaryURL)
 	if err != nil {
 		glog.Errorf("SourceURL is illegal, please check the error:\n%v", err)
 		return 1

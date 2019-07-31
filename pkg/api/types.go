@@ -261,6 +261,10 @@ type Config struct {
 	// SourceURL is  url of the codes such as https://github.com/a/b.git
 	SourceURL string `json:"sourceURL,omitempty"`
 
+	// IsBinaryURL explain the type of SourceURL.
+	// If it is IsBinaryURL, it will download the file directly without using git.
+	IsBinaryURL bool `json:"isBinaryURL,omitempty"`
+
 	// The RevisionId is a branch name or a SHA-1 hash of every important thing about the commit
 	RevisionId string `json:"revisionId,omitempty"`
 }

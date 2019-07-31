@@ -42,6 +42,8 @@ const (
 	URLTypeSCP
 	// URLTypeLocal is the local type (see above)
 	URLTypeLocal
+	// URLTypeBinary is the URL to download file
+	URLTypeBinary
 )
 
 // String returns a string representation of the URLType
@@ -53,6 +55,8 @@ func (t URLType) String() string {
 		return "URLTypeSCP"
 	case URLTypeLocal:
 		return "URLTypeLocal"
+	case URLTypeBinary:
+		return "URLTypeBinary"
 	}
 	panic("unknown URLType")
 }
@@ -84,7 +88,7 @@ func splitOnByte(s string, c byte) (string, string) {
 }
 
 // Parse parses a "Git URL"
-func Parse(rawurl string) (*URL, error) {
+func Parse(rawurl string, isBinaryURL bool) (*URL, error) {
 	if urlSchemeRegexp.MatchString(rawurl) &&
 		(runtime.GOOS != "windows" || !dosDriveRegexp.MatchString(rawurl)) {
 		u, err := url.Parse(rawurl)
@@ -99,11 +103,17 @@ func Parse(rawurl string) (*URL, error) {
 				return nil, fmt.Errorf("file url %q has non-absolute path %q", rawurl, u.Path)
 			}
 		}
-
-		return &URL{
-			URL:  *u,
-			Type: URLTypeURL,
-		}, nil
+		if isBinaryURL {
+			return &URL{
+				URL:  *u,
+				Type: URLTypeBinary,
+			}, nil
+		} else {
+			return &URL{
+				URL:  *u,
+				Type: URLTypeURL,
+			}, nil
+		}
 	}
 
 	s, fragment := splitOnByte(rawurl, '#')
@@ -136,7 +146,7 @@ func Parse(rawurl string) (*URL, error) {
 
 // MustParse parses a "Git URL" and panics on failure
 func MustParse(rawurl string) *URL {
-	u, err := Parse(rawurl)
+	u, err := Parse(rawurl, false)
 	if err != nil {
 		panic(err)
 	}
@@ -148,6 +158,8 @@ func (u URL) String() string {
 	var s string
 	switch u.Type {
 	case URLTypeURL:
+		return u.URL.String()
+	case URLTypeBinary:
 		return u.URL.String()
 	case URLTypeSCP:
 		if u.URL.User != nil {

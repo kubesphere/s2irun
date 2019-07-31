@@ -57,7 +57,7 @@ func New(client docker.Client, config *api.Config, fs fs.FileSystem, overrides b
 
 	downloader := overrides.Downloader
 	if downloader == nil {
-		downloader, err = scm.DownloaderForSource(builder.fs, config.Source, config.ForceCopy)
+		downloader, err = scm.DownloaderForSource(builder.fs, config.Source, config.ForceCopy, config.IsBinaryURL)
 		if err != nil {
 			return nil, err
 		}

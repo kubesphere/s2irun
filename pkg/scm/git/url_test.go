@@ -209,7 +209,7 @@ func TestParse(t *testing.T) {
 	)
 
 	for _, test := range tests {
-		parsedURL, err := Parse(test.rawurl)
+		parsedURL, err := Parse(test.rawurl, false)
 		if test.expectedError != (err != nil) {
 			t.Errorf("%s: Parse() returned err: %v", test.rawurl, err)
 		}
