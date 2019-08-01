@@ -3,6 +3,7 @@ package scm
 import (
 	"github.com/kubesphere/s2irun/pkg/build"
 	"github.com/kubesphere/s2irun/pkg/errors"
+	"github.com/kubesphere/s2irun/pkg/scm/downloaders/binary"
 	"github.com/kubesphere/s2irun/pkg/scm/downloaders/empty"
 	"github.com/kubesphere/s2irun/pkg/scm/downloaders/file"
 	gitdownloader "github.com/kubesphere/s2irun/pkg/scm/downloaders/git"
@@ -22,7 +23,9 @@ func DownloaderForSource(fs fs.FileSystem, s *git.URL, forceCopy bool) (build.Do
 	if s == nil {
 		return &empty.Noop{}, nil
 	}
-
+	if s.Type == git.URLTypeBinary {
+		return &binary.File{FileSystem: fs}, nil
+	}
 	if s.IsLocal() {
 		if forceCopy {
 			return &file.File{FileSystem: fs}, nil

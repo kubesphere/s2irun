@@ -1,0 +1,13 @@
+{
+  "displayName":"For Test",
+  "builderImage":"kubespheredev/java-8-centos7",
+  "tag":"runzexia/hello-java",
+  "export":false,
+  "pushAuthentication":{
+    "username":"",
+    "password":""
+  },
+  "revisionId":"staging",
+  "sourceURL":"https://github.com/kubesphere/devops-java-sample/releases/download/v0.0.1/devops-sample-0.0.1-SNAPSHOT.jar",
+  "isBinaryURL": true
+}

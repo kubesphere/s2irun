@@ -43,7 +43,7 @@ func GenerateConfigFromLabels(config *api.Config, metadata *docker.PullResult) e
 	}
 
 	if repo, ok := labels[constants.BuildSourceLocationLabel]; ok {
-		source, err := git.Parse(repo)
+		source, err := git.Parse(repo, false)
 		if err != nil {
 			return fmt.Errorf("couldn't parse label %q value %s: %v", constants.BuildSourceLocationLabel, repo, err)
 		}
