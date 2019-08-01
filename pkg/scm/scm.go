@@ -17,13 +17,13 @@ var glog = utilglog.StderrLog
 
 // DownloaderForSource determines what SCM plugin should be used for downloading
 // the sources from the repository.
-func DownloaderForSource(fs fs.FileSystem, s *git.URL, forceCopy bool, isBinaryDownload bool) (build.Downloader, error) {
+func DownloaderForSource(fs fs.FileSystem, s *git.URL, forceCopy bool) (build.Downloader, error) {
 	glog.V(9).Infof("DownloadForSource %s", s)
 
 	if s == nil {
 		return &empty.Noop{}, nil
 	}
-	if isBinaryDownload {
+	if s.Type == git.URLTypeBinary {
 		return &binary.File{FileSystem: fs}, nil
 	}
 	if s.IsLocal() {

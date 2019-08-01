@@ -318,7 +318,7 @@ func (builder *Dockerfile) Prepare(config *api.Config) error {
 
 	// Fetch sources, since their .s2i/bin might contain s2i scripts which override defaults.
 	if config.Source != nil {
-		downloader, err := scm.DownloaderForSource(builder.fs, config.Source, config.ForceCopy, config.IsBinaryURL)
+		downloader, err := scm.DownloaderForSource(builder.fs, config.Source, config.ForceCopy)
 		if err != nil {
 			builder.setFailureReason(utilstatus.ReasonFetchSourceFailed, utilstatus.ReasonMessageFetchSourceFailed)
 			return err

@@ -36,7 +36,7 @@ func TestDownloaderForSource(t *testing.T) {
 	}
 
 	for s, expected := range tc {
-		r, err := DownloaderForSource(fs.NewFileSystem(), s, false, false)
+		r, err := DownloaderForSource(fs.NewFileSystem(), s, false)
 		if err != nil {
 			t.Errorf("Unexpected error %q for %q, expected %q", err, s, expected)
 			continue
@@ -56,7 +56,7 @@ func TestDownloaderForSourceOnRelativeGit(t *testing.T) {
 	}
 	defer os.RemoveAll(gitLocalDir)
 	os.Chdir(gitLocalDir)
-	r, err := DownloaderForSource(fs.NewFileSystem(), git.MustParse("."), false, false)
+	r, err := DownloaderForSource(fs.NewFileSystem(), git.MustParse("."), false)
 	if err != nil {
 		t.Errorf("Unexpected error %q for %q, expected %q", err, ".", "git.Clone")
 	}
@@ -72,7 +72,7 @@ func TestDownloaderForceCopy(t *testing.T) {
 	}
 	defer os.RemoveAll(gitLocalDir)
 	os.Chdir(gitLocalDir)
-	r, err := DownloaderForSource(fs.NewFileSystem(), git.MustParse("."), true, false)
+	r, err := DownloaderForSource(fs.NewFileSystem(), git.MustParse("."), true)
 	if err != nil {
 		t.Errorf("Unexpected error %q for %q, expected %q", err, ".", "*file.File")
 	}

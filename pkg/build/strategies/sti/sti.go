@@ -156,7 +156,7 @@ func New(client dockerpkg.Client, config *api.Config, fs fs.FileSystem, override
 	// which would lead to replacing this quick short circuit (so this change is tactical)
 	builder.source = overrides.Downloader
 	if builder.source == nil && !config.Usage {
-		downloader, err := scm.DownloaderForSource(builder.fs, config.Source, config.ForceCopy, config.IsBinaryURL)
+		downloader, err := scm.DownloaderForSource(builder.fs, config.Source, config.ForceCopy)
 		if err != nil {
 			return nil, err
 		}
