@@ -2,8 +2,6 @@ package stringutils
 
 import (
 	"unicode/utf8"
-
-	"github.com/asaskevich/govalidator"
 )
 
 // Creates an slice of slice values not included in the other given slice.
@@ -29,14 +27,6 @@ func Unique(ss []string) (result []string) {
 		result = append(result, s)
 	}
 	return result
-}
-
-func CamelCaseToUnderscore(str string) string {
-	return govalidator.CamelCaseToUnderscore(str)
-}
-
-func UnderscoreToCamelCase(str string) string {
-	return govalidator.UnderscoreToCamelCase(str)
 }
 
 func FindString(array []string, str string) int {

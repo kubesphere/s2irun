@@ -7,7 +7,7 @@ import (
 	"strings"
 	"testing"
 
-	"github.com/docker/docker/builder/dockerfile"
+	"github.com/docker/docker/builder/dockerfile/parser"
 	"github.com/kubesphere/s2irun/pkg/api"
 	"github.com/kubesphere/s2irun/pkg/docker"
 	"github.com/kubesphere/s2irun/pkg/scm/git"

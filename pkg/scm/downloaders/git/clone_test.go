@@ -18,9 +18,10 @@ func TestCloneWithContext(t *testing.T) {
 	c := &Clone{gh, fs}
 
 	fakeConfig := &api.Config{
-		Source:           git.MustParse("https://foo/bar.git#ref1"),
+		Source:           git.MustParse("https://foo/bar.git"),
 		ContextDir:       "subdir",
 		IgnoreSubmodules: true,
+		RevisionId:       "ref1",
 	}
 	info, err := c.Download(fakeConfig)
 	if err != nil {
@@ -38,7 +39,7 @@ func TestCloneWithContext(t *testing.T) {
 	if filepath.ToSlash(fs.RemoveDirName) != "upload/tmp" {
 		t.Errorf("Expected to remove the upload/tmp directory")
 	}
-	if !reflect.DeepEqual(cr.Args, []string{"checkout", "--quiet", "ref1"}) {
+	if !reflect.DeepEqual(cr.Args, []string{"checkout", "ref1"}) {
 		t.Errorf("Unexpected command arguments: %#v", cr.Args)
 	}
 }
