@@ -16,3 +16,5 @@ vendor/github.com/docker/project
 
 _output
 .idea/*
+
+*.coverprofile

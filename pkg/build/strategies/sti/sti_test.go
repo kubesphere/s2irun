@@ -590,7 +590,7 @@ func TestFetchSource(t *testing.T) {
 		bh.config.WorkingDir = "/working-dir"
 		bh.config.Source = git.MustParse("a-repo-source")
 		if ft.refSpecified {
-			bh.config.Source.URL.Fragment = "a-branch"
+			bh.config.RevisionId = "a-branch"
 		}
 
 		expectedTargetDir := "/working-dir/upload/src"
