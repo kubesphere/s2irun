@@ -93,11 +93,14 @@ func TestGetFullImageName(t *testing.T) {
 		{"test/image", "test-harbor.io", "test-harbor.io/test/image:latest"},
 		{"test/image:latest", "test-harbor.io", "test-harbor.io/test/image:latest"},
 		{"test-harbor.io/test/image:tag", "test-harbor.io", "test-harbor.io/test/image:tag"},
-		{"repository/test/image", "test-harbor.io", "test-harbor.io/test/image:latest"},
-		{"repository/test/image:latest", "", "repository/test/image:latest"},
 		{"test/image:tag", "", "docker.io/test/image:tag"},
 		{"test/image", "test-harbor.io:3333", "test-harbor.io:3333/test/image:latest"},
 		{"test-harbor.io:3333/test/image", "", "test-harbor.io:3333/test/image:latest"},
+		{"nginx", "docker.io", "docker.io/library/nginx:latest"},
+		{"nginx:perl", "", "docker.io/library/nginx:perl"},
+		{"127.0.0.1:5000/test:aaa", "127.0.0.1:5001", "127.0.0.1:5001/test:aaa"},
+		{"127.0.0.1:5000/test:aaa", "", "127.0.0.1:5000/test:aaa"},
+		{"nginx", "", "docker.io/library/nginx:latest"},
 	}
 
 	for _, tc := range tests {

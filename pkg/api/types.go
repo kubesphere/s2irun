@@ -543,6 +543,15 @@ type InstallResult struct {
 // DockerNetworkMode specifies the network mode setting for the docker container
 type DockerNetworkMode string
 
+// Image holds information about an image.
+type ImageInfo struct {
+	Domain string
+	Path   string
+	Tag    string
+	Digest digest.Digest
+	named  reference.Named
+}
+
 const (
 	// DockerNetworkModeHost places the container in the default (host) network namespace.
 	DockerNetworkModeHost DockerNetworkMode = "host"
@@ -694,55 +703,62 @@ func (l *VolumeList) AsBinds() []string {
 }
 
 func Parse(originalName, serverAddress string) (ref string, err error) {
-	matches := reference.ReferenceRegexp.FindStringSubmatch(originalName)
-	if matches == nil {
-		if originalName == "" {
-			return "", reference.ErrNameEmpty
-		}
-		if reference.ReferenceRegexp.FindStringSubmatch(strings.ToLower(originalName)) != nil {
-			return "", reference.ErrNameContainsUppercase
-		}
-		return "", reference.ErrReferenceInvalidFormat
+
+	image, err := parseImage(originalName)
+	if err != nil {
+		return "", fmt.Errorf("parsing image %q failed: %v", originalName, err)
 	}
 
-	if len(matches[1]) > reference.NameTotalLengthMax {
-		return "", reference.ErrNameTooLong
+	if image.Domain != serverAddress && serverAddress != "" {
+		ref = serverAddress + "/" + image.Path + ":" + image.Tag
+	} else {
+		ref = image.String()
 	}
 
-	imageName := getImageName(matches[1], serverAddress)
-
-	if matches[3] != "" {
-		var err error
-		digest, err := digest.Parse(matches[3])
-		if err != nil {
-			return "", err
-		}
-		fullImageName := strings.Join([]string{imageName, digest.String()}, "@")
-		return fullImageName, nil
-	}
-
-	if matches[2] == "" {
-		matches[2] = DefaultTag
-	}
-
-	fullImageName := strings.Join([]string{imageName, matches[2]}, ":")
-	return fullImageName, nil
+	return ref, err
 }
 
-func getImageName(name, serverAddress string) (imageName string) {
-	count := strings.Count(name, "/")
-	if count == 1 {
-		if serverAddress == "" {
-			serverAddress = DefaultHub
-		}
-		imageName = strings.Join([]string{serverAddress, name}, "/")
+// ParseImage returns an Image struct with all the values filled in for a given image.
+// example : localhost:5000/nginx:latest, nginx:perl etc.
+func parseImage(image string) (*ImageInfo, error) {
+	// Parse the image name and tag.
+	named, err := reference.ParseNormalizedNamed(image)
 
-	} else {
-		parts := strings.Split(name, "/")
-		if serverAddress == "" {
-			serverAddress = parts[0]
-		}
-		imageName = strings.Join([]string{serverAddress, parts[1], parts[2]}, "/")
+	if err != nil {
+		return nil, fmt.Errorf("parsing image %q failed: %v", image, err)
 	}
-	return imageName
+	// Add the latest lag if they did not provide one.
+	named = reference.TagNameOnly(named)
+
+	i := &ImageInfo{
+		named:  named,
+		Domain: reference.Domain(named),
+		Path:   reference.Path(named),
+	}
+
+	// Add the tag if there was one.
+	if tagged, ok := named.(reference.Tagged); ok {
+		i.Tag = tagged.Tag()
+	}
+
+	// Add the digest if there was one.
+	if canonical, ok := named.(reference.Canonical); ok {
+		i.Digest = canonical.Digest()
+	}
+
+	return i, nil
+}
+
+// String returns the string representation of an image.
+func (i *ImageInfo) String() string {
+	return i.named.String()
+}
+
+// Reference returns either the digest if it is non-empty or the tag for the image.
+func (i *ImageInfo) Reference() string {
+	if len(i.Digest.String()) > 1 {
+		return i.Digest.String()
+	}
+
+	return i.Tag
 }
