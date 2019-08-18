@@ -230,7 +230,4 @@ func TestReportSuccessStep(t *testing.T) {
 		t.Errorf("should set Success field to 'true' but it's %v", builder.result.Success)
 	}
 
-	if builder.result.ImageID != ctx.imageID {
-		t.Errorf("should set ImageID field to %q but it's %q", ctx.imageID, builder.result.ImageID)
-	}
 }

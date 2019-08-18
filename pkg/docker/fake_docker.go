@@ -55,6 +55,8 @@ type FakeDocker struct {
 	IsOnBuildImage               string
 	Labels                       map[string]string
 	LabelsError                  error
+	GetInspectImage              *dockertypes.ImageInspect
+	GetInspectImageError         error
 }
 
 // IsImageInLocalRegistry checks if the image exists in the fake local registry
@@ -161,6 +163,11 @@ func (f *FakeDocker) GetImageID(image string) (string, error) {
 func (f *FakeDocker) GetImageUser(image string) (string, error) {
 	f.GetImageUserImage = image
 	return f.GetImageUserResult, f.GetImageUserError
+}
+
+// InspectImage returns a fake Image info
+func (f *FakeDocker) InspectImage(image string) (*dockertypes.ImageInspect, error) {
+	return f.GetInspectImage, f.GetInspectImageError
 }
 
 // GetImageEntrypoint returns an empty entrypoint
