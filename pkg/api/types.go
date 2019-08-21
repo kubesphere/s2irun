@@ -43,8 +43,24 @@ const (
 
 	// DefaultTag is the image tag, being applied if none is specified.
 	DefaultTag = "latest"
-	// DefaultHub is the default image repository.
-	DefaultHub = "docker.io"
+
+	// AnnotationBuildResultKey is the filed in job annotations.
+	AnnotationBuildResultKey = "s2iBuildResult"
+
+	// AnnotationBuildSourceKey is the filed in job annotations.
+	AnnotationBuildSourceKey = "s2iBuildSource"
+
+	// Command for pull docker image.
+	CommandPull = "docker pull "
+
+	// Default source branch.
+	DefaultBranch = "master"
+
+	//S2iRun Namespace which s2i job run.
+	S2iRunNamespace = "S2iRunNamespace"
+
+	//S2iRunJobName is the job name in k8s.
+	S2iRunJobName = "S2iRunJobName"
 )
 
 // Config contains essential fields for performing build.
@@ -267,6 +283,9 @@ type Config struct {
 
 	// The RevisionId is a branch name or a SHA-1 hash of every important thing about the commit
 	RevisionId string `json:"revisionId,omitempty"`
+
+	// Output build result. If build not in k8s cluster, can not use this field.
+	OutputBuildResult bool `json:"outputBuildResult,omitempty"`
 }
 
 // DeepCopyInto to implement k8s api requirement
@@ -410,11 +429,36 @@ type Result struct {
 	// WorkingDir describes temporary directory used for downloading sources, scripts and tar operations.
 	WorkingDir string
 
-	// ImageID describes resulting image ID.
-	ImageID string
-
 	// BuildInfo holds information about the result of a build.
 	BuildInfo BuildInfo
+
+	// ImageInfo describes resulting image info.
+	ResultInfo OutputResultInfo
+	// Source info.
+	SourceInfo SourceInfo
+}
+
+type SourceInfo struct {
+	SourceUrl    string `json:"sourceUrl,omitempty"`
+	RevisionId   string `json:"revisionId,omitempty"`
+	BuilderImage string `json:"builderImage,omitempty"`
+	Description  string `json:"description,omitempty"`
+
+	CommitID       string `json:"commitID,omitempty"`
+	CommitterName  string `json:"committerName,omitempty"`
+	CommitterEmail string `json:"committerEmail,omitempty"`
+
+	BinaryName string `json:"binaryName,omitempty"`
+	BinarySize uint64 `json:"binarySize,omitempty"`
+}
+
+type OutputResultInfo struct {
+	ImageName     string   `json:"imageName,omitempty"`
+	ImageID       string   `json:"imageID,omitempty"`
+	ImageSize     int64    `json:"imageSize,omitempty"`
+	ImageCreated  string   `json:"imageCreated,omitempty"`
+	ImageRepoTags []string `json:"imageRepoTags,omitempty"`
+	CommandPull   string   `json:"commandPull,omitempty"`
 }
 
 // BuildInfo contains information about the build process.
@@ -739,11 +783,6 @@ func parseImage(image string) (*ImageInfo, error) {
 	// Add the tag if there was one.
 	if tagged, ok := named.(reference.Tagged); ok {
 		i.Tag = tagged.Tag()
-	}
-
-	// Add the digest if there was one.
-	if canonical, ok := named.(reference.Canonical); ok {
-		i.Digest = canonical.Digest()
 	}
 
 	return i, nil

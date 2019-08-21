@@ -144,7 +144,7 @@ func (builder *OnBuild) Build(config *api.Config) (*api.Result, error) {
 	return &api.Result{
 		Success:    true,
 		WorkingDir: config.WorkingDir,
-		ImageID:    imageID,
+		ResultInfo: api.OutputResultInfo{ImageID: imageID},
 	}, nil
 }
 

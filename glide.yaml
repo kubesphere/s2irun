@@ -13,10 +13,9 @@ import:
   subpackages:
   - digestset
   - reference
-# close-write carry
 - package: github.com/docker/docker
-  repo:    https://github.com/openshift/moby-moby.git
   version: openshift-3.10-docker-b68221c
+  repo: https://github.com/openshift/moby-moby.git
   subpackages:
   - api
   - api/types
@@ -102,3 +101,8 @@ import:
   subpackages:
   - unix
   - windows
+- package: sigs.k8s.io/controller-runtime
+- package: k8s.io/client-go
+  version: ^12.0.0
+  subpackages:
+  - kubernetes

@@ -48,4 +48,9 @@ type SourceInfo struct {
 	// The output image will contain this information as 'io.openshift.build.source-context-dir'
 	// label.
 	ContextDir string
+
+	// Binary file name.
+	BinaryName string
+	// Binary file size.
+	BinarySize uint64
 }

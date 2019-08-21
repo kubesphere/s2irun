@@ -392,7 +392,6 @@ func (step *reportSuccessStep) execute(ctx *postExecutorStepContext) error {
 	glog.V(3).Info("Executing step: report success")
 
 	step.builder.result.Success = true
-	step.builder.result.ImageID = ctx.imageID
 
 	glog.V(3).Infof("Successfully built %s", utils.FirstNonEmpty(step.builder.config.Tag, ctx.imageID))
 

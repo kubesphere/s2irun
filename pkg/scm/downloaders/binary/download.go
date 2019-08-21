@@ -47,9 +47,12 @@ func (f *File) Download(config *api.Config) (*git.SourceInfo, error) {
 	counter := &WriteCounter{Size: size}
 	_, err = io.Copy(out, io.TeeReader(resp.Body, counter))
 	glog.V(0).Infof("Finish Download Binary %s", filename)
+	glog.V(0).Infof("Binary size %s", bytefmt.ByteSize(counter.Total))
 	return &git.SourceInfo{
 		Location:   config.Source.String(),
 		ContextDir: config.ContextDir,
+		BinaryName: filename,
+		BinarySize: counter.Total,
 	}, nil
 }
 
@@ -74,7 +77,7 @@ func (wc WriteCounter) PrintProgress() {
 	// Return again and print current status of download
 	// We use the humanize package to print the bytes in a meaningful way (e.g. 10 MB)
 	if wc.Size > 0 {
-		glog.V(0).Infof("\rDownloading... %s//%s", bytefmt.ByteSize(wc.Total), bytefmt.ByteSize(wc.Size))
+		glog.V(0).Infof("\rDownloading... %s/%s", bytefmt.ByteSize(wc.Total), bytefmt.ByteSize(wc.Size))
 	} else {
 		glog.V(0).Infof("\rDownloading... %s complete", bytefmt.ByteSize(wc.Total))
 	}

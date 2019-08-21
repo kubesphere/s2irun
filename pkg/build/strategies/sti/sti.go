@@ -19,6 +19,7 @@ import (
 	dockerpkg "github.com/kubesphere/s2irun/pkg/docker"
 	s2ierr "github.com/kubesphere/s2irun/pkg/errors"
 	"github.com/kubesphere/s2irun/pkg/ignore"
+	"github.com/kubesphere/s2irun/pkg/outputresult"
 	"github.com/kubesphere/s2irun/pkg/scm"
 	"github.com/kubesphere/s2irun/pkg/scm/git"
 	"github.com/kubesphere/s2irun/pkg/scripts"
@@ -260,6 +261,15 @@ func (builder *STI) Build(config *api.Config) (*api.Result, error) {
 	builder.result.BuildInfo.Stages = api.RecordStageAndStepInfo(builder.result.BuildInfo.Stages, api.StageAssemble, api.StepAssembleBuildScripts, startTime, time.Now())
 	builder.result.Success = true
 
+	if builder.config.OutputBuildResult == true {
+		dockerInspect, err := builder.docker.InspectImage(builder.config.Tag)
+		if err != nil {
+			glog.V(1).Info("Inspect image failed.")
+		}
+		glog.V(0).Info("Start output build info.")
+		outputresult.OutputResult(builder.config, dockerInspect, builder.result)
+	}
+
 	return builder.result, nil
 }
 
@@ -372,8 +382,8 @@ func (builder *STI) Prepare(config *api.Config) error {
 			)
 			return err
 		}
-		if config.SourceInfo != nil {
-			builder.sourceInfo = config.SourceInfo
+		if builder.sourceInfo != nil {
+			config.SourceInfo = builder.sourceInfo
 		}
 	}
 

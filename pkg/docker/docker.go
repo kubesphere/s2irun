@@ -113,6 +113,7 @@ type Docker interface {
 	DownloadFromContainer(containerPath string, w io.Writer, container string) error
 	Version() (dockertypes.Version, error)
 	CheckReachable() error
+	InspectImage(name string) (*dockertypes.ImageInspect, error)
 }
 
 // Client contains all methods used when interacting directly with docker engine-api
@@ -330,29 +331,20 @@ func New(client Client, pullAuth api.AuthConfig, pushAuth api.AuthConfig) Docker
 	}
 }
 
-func NewEnvClient(pullAuth api.AuthConfig, pushAuth api.AuthConfig) Docker {
-	c, _ := dockerapi.NewEnvClient()
-	return &stiDocker{
-		client: c,
-		pullAuth: dockertypes.AuthConfig{
-			Username:      pullAuth.Username,
-			Password:      pullAuth.Password,
-			Email:         pullAuth.Email,
-			ServerAddress: pullAuth.ServerAddress,
-		},
-		pushAuth: dockertypes.AuthConfig{
-			Username:      pushAuth.Username,
-			Password:      pushAuth.Password,
-			Email:         pushAuth.Email,
-			ServerAddress: pushAuth.ServerAddress,
-		},
-	}
-}
 func getDefaultContext() (context.Context, context.CancelFunc) {
 	// the intention is: all docker API calls with the exception of known long-
 	// running calls (ContainerWait, ImagePull, ImageBuild, ImageCommit) must complete within a
 	// certain timeout otherwise we bail.
 	return context.WithTimeout(context.Background(), DefaultDockerTimeout)
+}
+
+func (d *stiDocker) GetImageSize(name string) (int64, error) {
+	resp, err := d.InspectImage(name)
+	if err != nil {
+		return 0, err
+	}
+
+	return resp.Size, nil
 }
 
 // GetImageWorkdir returns the WORKDIR property for the given image name.
