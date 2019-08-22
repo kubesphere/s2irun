@@ -2,17 +2,29 @@ package outputresult
 
 import (
 	"encoding/json"
-	dockertypes "github.com/docker/docker/api/types"
+	"os"
+	"time"
+
 	"github.com/kubesphere/s2irun/pkg/api"
-	utilglog "github.com/kubesphere/s2irun/pkg/utils/glog"
 	"k8s.io/apimachinery/pkg/apis/meta/v1"
+	"k8s.io/apimachinery/pkg/util/wait"
 	"k8s.io/client-go/kubernetes"
 	"k8s.io/client-go/util/retry"
-	"os"
 	"sigs.k8s.io/controller-runtime/pkg/client/config"
+
+	dockertypes "github.com/docker/docker/api/types"
+	utilglog "github.com/kubesphere/s2irun/pkg/utils/glog"
 )
 
-var glog = utilglog.StderrLog
+var (
+	Retry = wait.Backoff{
+		Steps:    10,
+		Duration: 10 * time.Millisecond,
+		Factor:   1.0,
+		Jitter:   0.1,
+	}
+	glog = utilglog.StderrLog
+)
 
 func OutputResult(builderConfig *api.Config, imageInspect *dockertypes.ImageInspect, result *api.Result) {
 	// build result info.
@@ -49,10 +61,10 @@ func OutputResult(builderConfig *api.Config, imageInspect *dockertypes.ImageInsp
 }
 
 func addBuildResultToAnnotation(buildResult *api.Result) error {
-	namespace := os.Getenv(api.S2iRunNamespace)
-	jobName := os.Getenv(api.S2iRunJobName)
-	if namespace == "" || jobName == "" {
-		glog.Warning("failed to get env S2iRunJobName and S2iRunNamespace")
+	namespace := os.Getenv("POD_NAMESPACE")
+	podName := os.Getenv("POD_NAME")
+	if namespace == "" || podName == "" {
+		glog.Warning("failed to get env S2iRun PodName and S2iRun Namespace")
 		return nil
 	}
 	cfg, err := config.GetConfig()
@@ -62,20 +74,22 @@ func addBuildResultToAnnotation(buildResult *api.Result) error {
 	}
 	k8sClient := kubernetes.NewForConfigOrDie(cfg)
 
-	retryErr := retry.RetryOnConflict(retry.DefaultRetry, func() error {
-		job, err := k8sClient.BatchV1().Jobs(namespace).Get(jobName, v1.GetOptions{})
+	retryErr := retry.RetryOnConflict(Retry, func() error {
+		pod, err := k8sClient.CoreV1().Pods(namespace).Get(podName, v1.GetOptions{})
 		if err != nil {
-			glog.Errorf("failed to get job %s in namespace %s, reason: %s", jobName, namespace, err)
+			glog.Errorf("failed to get pod %s in namespace %s, reason: %s", podName, namespace, err)
 			return err
 		}
 
-		//update job annotations
+		//update pod annotations
 		result, _ := json.Marshal(buildResult.ResultInfo)
 		source, _ := json.Marshal(buildResult.SourceInfo)
-		job.Annotations[api.AnnotationBuildResultKey] = string(result)
-		job.Annotations[api.AnnotationBuildSourceKey] = string(source)
+		pod.Annotations = map[string]string{
+			api.AnnotationBuildResultKey: string(result),
+			api.AnnotationBuildSourceKey: string(source),
+		}
 
-		_, err = k8sClient.BatchV1().Jobs(namespace).Update(job)
+		_, err = k8sClient.CoreV1().Pods(namespace).Update(pod)
 		return err
 	})
 
