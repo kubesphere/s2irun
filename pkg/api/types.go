@@ -55,12 +55,6 @@ const (
 
 	// Default source branch.
 	DefaultBranch = "master"
-
-	//S2iRun Namespace which s2i job run.
-	S2iRunNamespace = "S2iRunNamespace"
-
-	//S2iRunJobName is the job name in k8s.
-	S2iRunJobName = "S2iRunJobName"
 )
 
 // Config contains essential fields for performing build.
