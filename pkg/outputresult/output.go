@@ -26,41 +26,28 @@ var (
 	glog = utilglog.StderrLog
 )
 
-func OutputResult(builderConfig *api.Config, imageInspect *dockertypes.ImageInspect, result *api.Result) {
+func OutputResult(builderConfig *api.Config, imageInspect *dockertypes.ImageInspect, result *api.Result) *api.Result {
 	// build result info.
 	result.ResultInfo.ImageID = imageInspect.ID
 	result.ResultInfo.ImageCreated = imageInspect.Created
 	result.ResultInfo.ImageRepoTags = imageInspect.RepoTags
-	result.ResultInfo.ImageName = builderConfig.Tag
 	result.ResultInfo.CommandPull = api.CommandPull + builderConfig.Tag
 	result.ResultInfo.ImageSize = imageInspect.Size
 
 	// build source info.
-	result.SourceInfo.SourceUrl = builderConfig.SourceURL
-	result.SourceInfo.BuilderImage = builderConfig.BuilderImage
-	result.SourceInfo.Description = builderConfig.Description
-	if builderConfig.RevisionId == "" {
-		builderConfig.RevisionId = api.DefaultBranch
-	}
-
 	if builderConfig.IsBinaryURL == true {
 		result.SourceInfo.BinaryName = builderConfig.SourceInfo.BinaryName
 		result.SourceInfo.BinarySize = builderConfig.SourceInfo.BinarySize
 	} else {
-		result.SourceInfo.RevisionId = builderConfig.RevisionId
 		result.SourceInfo.CommitID = builderConfig.SourceInfo.CommitID
 		result.SourceInfo.CommitterName = builderConfig.SourceInfo.CommitterName
 		result.SourceInfo.CommitterEmail = builderConfig.SourceInfo.CommitterEmail
 	}
 
-	// add Annotation
-	err := addBuildResultToAnnotation(result)
-	if err != nil {
-		glog.V(1).Info("Output build result failed, reason: %s.", err)
-	}
+	return result
 }
 
-func addBuildResultToAnnotation(buildResult *api.Result) error {
+func AddBuildResultToAnnotation(buildResult *api.Result) error {
 	namespace := os.Getenv("POD_NAMESPACE")
 	podName := os.Getenv("POD_NAME")
 	if namespace == "" || podName == "" {

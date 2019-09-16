@@ -267,7 +267,11 @@ func (builder *STI) Build(config *api.Config) (*api.Result, error) {
 			glog.V(1).Info("Inspect image failed.")
 		}
 		glog.V(0).Info("Start output build info.")
-		outputresult.OutputResult(builder.config, dockerInspect, builder.result)
+		buildResult := outputresult.OutputResult(builder.config, dockerInspect, builder.result)
+		err = outputresult.AddBuildResultToAnnotation(buildResult)
+		if err != nil {
+			glog.V(1).Info("Output build result failed, reason: %s.", err)
+		}
 	}
 
 	return builder.result, nil
