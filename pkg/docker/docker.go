@@ -512,7 +512,7 @@ func (d *stiDocker) CheckImage(name string) (*api.Image, error) {
 	name = getImageName(name)
 	inspect, err := d.InspectImage(name)
 	if err != nil {
-		glog.V(4).Infof("error inspecting image %s: %v", name, err)
+		glog.V(6).Infof("error inspecting image %s: %v", name, err)
 		return nil, s2ierr.NewInspectImageError(name, err)
 	}
 	if inspect != nil {
