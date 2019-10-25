@@ -300,7 +300,7 @@ func CheckError(err error) {
 			glog.V(1).Infof("Details: %v", e.Details)
 		}
 		glog.Error("If the problem persists consult the docs at https://kubesphere.io/docs/advanced-v2.0/zh-CN/quick-start/source-to-image. " +
-			"Eventually reach us on freenode #openshift or file an issue at https://github.com/kubesphere/s2irun/issues " +
+			"Open an issue at https://github.com/kubesphere/s2irun/issues " +
 			"providing us with a log from your build using log output level 3.")
 		os.Exit(e.ErrorCode)
 	} else {
