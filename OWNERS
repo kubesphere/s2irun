@@ -1,8 +1,8 @@
 approvers:
     - runzexia #oncall
-    - soulseen
+    - soulseen #oncall
 
 reviewers:
     - runzexia #oncall
-    - soulseen
+    - soulseen #oncall
     - magicsong
