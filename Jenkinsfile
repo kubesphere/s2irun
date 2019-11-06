@@ -7,7 +7,7 @@ pipeline {
     }
 
     environment {
-      IMAGE_NAME = 'kubespheredev/s2irun:advanced-2.1.0'
+      IMAGE_NAME = 'kubespheredev/s2irun:2.1.0'
     }
 
     stages {
