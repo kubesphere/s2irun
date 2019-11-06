@@ -33,7 +33,7 @@ make test'''
 
         stage ('docker push') {
             when{
-                branch 'jenkinsfile'
+                branch 'master'
             }
 
             steps {
