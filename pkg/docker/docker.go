@@ -792,20 +792,20 @@ func getScriptsURL(image *api.Image) string {
 		scriptsURL = getLabel(image, constants.DeprecatedScriptsURLLabel)
 		if len(scriptsURL) > 0 {
 			glog.V(0).Infof("warning: Image %s uses deprecated label '%s', please migrate it to %s instead!",
-				image.ID, constants.DeprecatedScriptsURLLabel, constants.ScriptsURLLabel)
+				image.ID, constants.DeprecatedScriptsURLLabel, "label scripts-url")
 		}
 	}
 	if len(scriptsURL) == 0 {
 		scriptsURL = getVariable(image, constants.ScriptsURLEnvironment)
 		if len(scriptsURL) != 0 {
 			glog.V(0).Infof("warning: Image %s uses deprecated environment variable %s, please migrate it to %s label instead!",
-				image.ID, constants.ScriptsURLEnvironment, constants.ScriptsURLLabel)
+				image.ID, constants.ScriptsURLEnvironment, "label scripts-url")
 		}
 	}
 	if len(scriptsURL) == 0 {
-		glog.V(0).Infof("warning: Image %s does not contain a value for the %s label", image.ID, constants.ScriptsURLLabel)
+		glog.V(0).Infof("warning: Image %s does not contain a value for the %s label", image.ID, "scripts-url")
 	} else {
-		glog.V(2).Infof("Image %s contains %s set to %q", image.ID, constants.ScriptsURLLabel, scriptsURL)
+		glog.V(2).Infof("Image %s contains %s set to %q", image.ID, "scripts-url", scriptsURL)
 	}
 
 	return scriptsURL
