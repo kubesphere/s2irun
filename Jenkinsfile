@@ -6,8 +6,12 @@ pipeline {
         }
     }
 
+    parameters {
+      string(name:'TAG_NAME',defaultValue: 'latest',description:'')
+    }
+
     environment {
-      IMAGE_NAME = 'kubespheredev/s2irun:2.1.0'
+      IMAGE_NAME = 'kubespheredev/s2irun'
     }
 
     stages {
@@ -38,10 +42,10 @@ make test'''
 
             steps {
                 container ('go') {
-                    sh "docker build . -t $IMAGE_NAME"
+                    sh "docker build . -t $IMAGE_NAME:$TAG_NAME"
                     withCredentials([usernamePassword(passwordVariable : 'DOCKER_PASSWORD' ,usernameVariable : 'DOCKER_USERNAME' ,credentialsId : "dockerhub-id" ,)]) {
                         sh 'echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin'
-                        sh 'docker push $IMAGE_NAME'
+                        sh 'docker push $IMAGE_NAME:$TAG_NAME'
                     }
                 }
             }
