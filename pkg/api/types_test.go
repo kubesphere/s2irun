@@ -101,6 +101,14 @@ func TestGetFullImageName(t *testing.T) {
 		{"127.0.0.1:5000/test:aaa", "127.0.0.1:5001", "127.0.0.1:5001/test:aaa"},
 		{"127.0.0.1:5000/test:aaa", "", "127.0.0.1:5000/test:aaa"},
 		{"nginx", "", "docker.io/library/nginx:latest"},
+		{"zhuxiaoyang/nginx:v1", "docker.io", "docker.io/zhuxiaoyang/nginx:v1"},
+		{"library/tomcat:v1", "http://harbor.devops.kubesphere.local:30280", "harbor.devops.kubesphere.local:30280/library/tomcat:v1"},
+		{"library/tomcat:v1", "https://harbor.devops.kubesphere.local:30280", "harbor.devops.kubesphere.local:30280/library/tomcat:v1"},
+		{"library/tomcat:v1", "harbor.devops.kubesphere.local:30280", "harbor.devops.kubesphere.local:30280/library/tomcat:v1"},
+		{"zxytest/s2i-1:v1", "https://dockerhub.qingcloud.com", "dockerhub.qingcloud.com/zxytest/s2i-1:v1"},
+		{"zxytest/s2i-1:v1", "http://dockerhub.qingcloud.com", "dockerhub.qingcloud.com/zxytest/s2i-1:v1"},
+		{"zxytest/s2i-1:v1", "dockerhub.qingcloud.com", "dockerhub.qingcloud.com/zxytest/s2i-1:v1"},
+
 	}
 
 	for _, tc := range tests {
