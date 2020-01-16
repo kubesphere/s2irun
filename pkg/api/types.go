@@ -747,6 +747,12 @@ func Parse(originalName, serverAddress string) (ref string, err error) {
 		return "", fmt.Errorf("parsing image %q failed: %v", originalName, err)
 	}
 
+	// remove schema if required
+	if strings.Contains(serverAddress, "://") {
+		protoAddrParts := strings.SplitN(serverAddress, "://", 2)
+		serverAddress = protoAddrParts[1]
+	}
+
 	if image.Domain != serverAddress && serverAddress != "" {
 		ref = serverAddress + "/" + image.Path + ":" + image.Tag
 	} else {
@@ -759,6 +765,7 @@ func Parse(originalName, serverAddress string) (ref string, err error) {
 // ParseImage returns an Image struct with all the values filled in for a given image.
 // example : localhost:5000/nginx:latest, nginx:perl etc.
 func parseImage(image string) (*ImageInfo, error) {
+
 	// Parse the image name and tag.
 	named, err := reference.ParseNormalizedNamed(image)
 
