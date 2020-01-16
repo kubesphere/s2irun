@@ -108,7 +108,6 @@ func TestGetFullImageName(t *testing.T) {
 		{"zxytest/s2i-1:v1", "https://dockerhub.qingcloud.com", "dockerhub.qingcloud.com/zxytest/s2i-1:v1"},
 		{"zxytest/s2i-1:v1", "http://dockerhub.qingcloud.com", "dockerhub.qingcloud.com/zxytest/s2i-1:v1"},
 		{"zxytest/s2i-1:v1", "dockerhub.qingcloud.com", "dockerhub.qingcloud.com/zxytest/s2i-1:v1"},
-
 	}
 
 	for _, tc := range tests {

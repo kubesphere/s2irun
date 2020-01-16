@@ -748,12 +748,9 @@ func Parse(originalName, serverAddress string) (ref string, err error) {
 	}
 
 	// remove schema if required
-	if strings.HasPrefix(serverAddress, "http") {
-		_,serverAddress,err = Getscheme(serverAddress)
-		if err != nil {
-			return "", fmt.Errorf("parsing image %q failed: %v", image, err)
-		}
-		serverAddress = strings.Trim(serverAddress, "//")
+	if strings.Contains(serverAddress, "://") {
+		protoAddrParts := strings.SplitN(serverAddress, "://", 2)
+		serverAddress = protoAddrParts[1]
 	}
 
 	if image.Domain != serverAddress && serverAddress != "" {
@@ -790,33 +787,6 @@ func parseImage(image string) (*ImageInfo, error) {
 	}
 
 	return i, nil
-}
-
-// Maybe rawurl is of the form scheme:path.
-// (Scheme must be [a-zA-Z][a-zA-Z0-9+-.]*)
-// If so, return scheme, path; else return "", rawurl.
-func Getscheme(rawurl string) (scheme, path string, err error) {
-	for i := 0; i < len(rawurl); i++ {
-		c := rawurl[i]
-		switch {
-		case 'a' <= c && c <= 'z' || 'A' <= c && c <= 'Z':
-		// do nothing
-		case '0' <= c && c <= '9' || c == '+' || c == '-' || c == '.':
-			if i == 0 {
-				return "", rawurl, nil
-			}
-		case c == ':':
-			if i == 0 {
-				return "", "", nil
-			}
-			return rawurl[:i], rawurl[i+1:], nil
-		default:
-			// we have encountered an invalid character,
-			// so there is no valid scheme
-			return "", rawurl, nil
-		}
-	}
-	return "", rawurl, nil
 }
 
 // String returns the string representation of an image.
