@@ -773,9 +773,9 @@ func (d *stiDocker) GetAssembleInputFiles(image string) (string, error) {
 
 	label := getLabel(imageMetadata, constants.AssembleInputFilesLabel)
 	if len(label) == 0 {
-		glog.V(0).Infof("warning: Image %q does not contain a value for the %s label", image, constants.AssembleInputFilesLabel)
+		glog.V(0).Infof("warning: Image %q does not contain a value for the %s label", image, constants.AssembleInputFilesLabelLog)
 	} else {
-		glog.V(3).Infof("Image %q contains %s set to %q", image, constants.AssembleInputFilesLabel, label)
+		glog.V(3).Infof("Image %q contains %s set to %q", image, constants.AssembleInputFilesLabelLog, label)
 	}
 	return label, nil
 }
@@ -790,17 +790,9 @@ func getScriptsURL(image *api.Image) string {
 	// For backward compatibility, support the old label schema
 	if len(scriptsURL) == 0 {
 		scriptsURL = getLabel(image, constants.DeprecatedScriptsURLLabel)
-		if len(scriptsURL) > 0 {
-			glog.V(0).Infof("warning: Image %s uses deprecated label '%s', please migrate it to %s instead!",
-				image.ID, constants.DeprecatedScriptsURLLabel, "label scripts-url")
-		}
 	}
 	if len(scriptsURL) == 0 {
 		scriptsURL = getVariable(image, constants.ScriptsURLEnvironment)
-		if len(scriptsURL) != 0 {
-			glog.V(0).Infof("warning: Image %s uses deprecated environment variable %s, please migrate it to %s label instead!",
-				image.ID, constants.ScriptsURLEnvironment, "label scripts-url")
-		}
 	}
 	if len(scriptsURL) == 0 {
 		glog.V(0).Infof("warning: Image %s does not contain a value for the %s label", image.ID, "scripts-url")
@@ -818,8 +810,6 @@ func getDestination(image *api.Image) string {
 	}
 	// For backward compatibility, support the old label schema
 	if val := getLabel(image, constants.DeprecatedDestinationLabel); len(val) != 0 {
-		glog.V(0).Infof("warning: Image %s uses deprecated label '%s', please migrate it to %s instead!",
-			image.ID, constants.DeprecatedDestinationLabel, constants.DestinationLabel)
 		return val
 	}
 	if val := getVariable(image, constants.LocationEnvironment); len(val) != 0 {

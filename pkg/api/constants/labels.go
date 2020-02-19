@@ -20,8 +20,12 @@ const (
 	// AssembleInputFilesLabel is the Docker image LABEL that tells S2I which files wil be copied from builder to a runtime image.
 	AssembleInputFilesLabel = DefaultNamespace + "assemble-input-files"
 
+	AssembleInputFilesLabelLog = "assemble-input-files"
+
 	// AssembleUserLabel is the Docker image label that tells S2I which user should execute the assemble scripts.
 	AssembleUserLabel = DefaultNamespace + "assemble-user"
+
+	AssembleUserLabelLog = "assemble-user"
 
 	buildNamespace = DefaultNamespace + "build."
 
@@ -35,10 +39,14 @@ const (
 	// During a rebuild, this label is used by S2I to pull the appropriate builder image.
 	BuildImageLabel = buildNamespace + "image"
 
+	BuildImageLabelLog = "image"
+
 	// BuildSourceLocationLabel is the Docker image LABEL that S2I uses to record the URL of the source repository used to produce the S2I image.
 	//
 	// During a rebuild, this label is used by S2I to clone the appropriate source code repository.
 	BuildSourceLocationLabel = buildNamespace + "source-location"
+
+	BuildSourceLocationLabelLog = "source-location"
 
 	// BuildSourceContextDir is the Docker image LABEL that S2I uses to record the context directory in the source code repository to use for the  build.
 	//

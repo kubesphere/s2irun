@@ -184,7 +184,7 @@ func NewInstallError(script string) error {
 		Message:    fmt.Sprintf("failed to install %v", script),
 		Details:    nil,
 		ErrorCode:  InstallError,
-		Suggestion: fmt.Sprintf("set the scripts URL parameter with the location of the S2I scripts, or check if the image has the %q label set", constants.ScriptsURLLabel),
+		Suggestion: fmt.Sprintf("set the scripts URL parameter with the location of the S2I scripts, or check if the image has the %q label set", constants.DeprecatedScriptsURLLabel),
 	}
 }
 
@@ -195,7 +195,7 @@ func NewInstallRequiredError(scripts []string, label string) error {
 		Message:    fmt.Sprintf("failed to install %v", scripts),
 		Details:    nil,
 		ErrorCode:  InstallErrorRequired,
-		Suggestion: fmt.Sprintf("set the scripts URL parameter with the location of the S2I scripts, or check if the image has the %q label set", constants.ScriptsURLLabel),
+		Suggestion: fmt.Sprintf("set the scripts URL parameter with the location of the S2I scripts, or check if the image has the %q label set", constants.DeprecatedScriptsURLLabel),
 	}
 }
 
@@ -258,8 +258,8 @@ func NewAssembleUserNotAllowedError(image string, usesConfig bool) error {
 		msg = "assemble user must be numeric and within the range of allowed users"
 		suggestion = "build without the allowed UIDs or assemble user configurations set"
 	} else {
-		msg = fmt.Sprintf("image %q includes the %q label whose value is not within the allowed range", image, constants.AssembleUserLabel)
-		suggestion = fmt.Sprintf("modify the %q label in image %q to use a numeric user within the allowed range, or build without the allowed UIDs configuration set", constants.AssembleUserLabel, image)
+		msg = fmt.Sprintf("image %q includes the %q label whose value is not within the allowed range", image, constants.AssembleUserLabelLog)
+		suggestion = fmt.Sprintf("modify the %q label in image %q to use a numeric user within the allowed range, or build without the allowed UIDs configuration set", constants.AssembleUserLabelLog, image)
 	}
 	return Error{
 		Message:    msg,

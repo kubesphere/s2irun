@@ -232,7 +232,7 @@ func (m *DefaultScriptSourceManager) InstallRequired(scripts []string, dstDir st
 		}
 	}
 	if len(failedScripts) > 0 {
-		err = s2ierr.NewInstallRequiredError(failedScripts, constants.ScriptsURLLabel)
+		err = s2ierr.NewInstallRequiredError(failedScripts, constants.DeprecatedScriptsURLLabel)
 	}
 	return result, err
 }
