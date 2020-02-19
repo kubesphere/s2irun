@@ -299,7 +299,7 @@ func CheckError(err error) {
 		if e.Details != nil {
 			glog.V(1).Infof("Details: %v", e.Details)
 		}
-		glog.Error("If the problem persists consult the docs at https://kubesphere.io/docs/advanced-v2.0/zh-CN/quick-start/source-to-image. " +
+		glog.Error("If the problem persists consult the docs at https://kubesphere.io/docs/v2.1/zh-CN/quick-start/source-to-image/ " +
 			"Open an issue at https://github.com/kubesphere/s2irun/issues " +
 			"providing us with a log from your build using log output level 3.")
 		os.Exit(e.ErrorCode)
