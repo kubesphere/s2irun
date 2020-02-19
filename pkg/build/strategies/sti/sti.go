@@ -337,7 +337,7 @@ func (builder *STI) Prepare(config *api.Config) error {
 						utilstatus.ReasonMessageGenericS2iBuildFailed,
 					)
 					return fmt.Errorf("could not  parse %q label with value %q on image %q: %v",
-						constants.AssembleInputFilesLabel, mapping, config.RuntimeImage, err)
+						constants.AssembleInputFilesLabelLog, mapping, config.RuntimeImage, err)
 				}
 			}
 		}
