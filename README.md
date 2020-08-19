@@ -15,7 +15,7 @@ You've just built and run a new container image from source code in a git reposi
 
 #### Start
 
-1. Create your own fork of [devops-java-sample](https://github.com/kubesphere/devops-java-sample), this is a web project witn java8.
+1. Create your own fork of [devops-java-sample](https://github.com/kubesphere/devops-java-sample), this is a web project with java8.
 
 2. Clone [S2IRun repo](https://github.com/kubesphere/s2irun) to your machine
 
