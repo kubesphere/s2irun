@@ -1,6 +1,7 @@
 ## S2IRun
-
+[![Gitpod ready-to-code](https://img.shields.io/badge/Gitpod-ready--to--code-blue?logo=gitpod)](https://gitpod.io/#https://github.com/kubesphere/s2irun)
 [![License](http://img.shields.io/badge/license-apache%20v2-blue.svg)](https://github.com/KubeSphere/s2irun/blob/master/LICENSE)  [![Go Report Card](https://goreportcard.com/badge/github.com/kubesphere/s2ioperator)](https://goreportcard.com/report/github.com/kubesphere/s2irun)  [![S2IRun release](https://img.shields.io/github/release/kubesphere/s2irun.svg?color=release&label=release&logo=release&logoColor=release)](https://github.com/kubesphere/s2irun/releases/tag/v0.0.3)
+![Docker Pulls](https://img.shields.io/docker/pulls/kubesphere/s2irun)
 
 Source to image is a command toolkit  and workflow for building reproducible container images from source code. S2IRun is the instance that executes the s2i build process, and can be containerized so that it can run in any container environment. S2IRun produces ready-to-run images by injecting source code into a container image and letting the container prepare that source code for execution. 
 
