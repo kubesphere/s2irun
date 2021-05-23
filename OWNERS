@@ -1,8 +1,11 @@
 approvers:
     - runzexia #oncall
     - soulseen #oncall
+    - linuxsuren
 
 reviewers:
     - runzexia #oncall
     - soulseen #oncall
     - magicsong
+    - JohnNiang
+
