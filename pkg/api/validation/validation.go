@@ -18,24 +18,24 @@ func ValidateConfig(config *api.Config) []Error {
 	switch config.BuilderPullPolicy {
 	case api.PullNever, api.PullAlways, api.PullIfNotPresent:
 	default:
-		allErrs = append(allErrs, NewFieldInvalidValue("builderPullPolicy"))
+		allErrs = append(allErrs, NewFieldInvalidValueObj("builderPullPolicy", config.BuilderPullPolicy))
 	}
 	if config.DockerConfig == nil || len(config.DockerConfig.Endpoint) == 0 {
 		allErrs = append(allErrs, NewFieldRequired("dockerConfig.endpoint"))
 	}
 	if config.DockerNetworkMode != "" && !validateDockerNetworkMode(config.DockerNetworkMode) {
-		allErrs = append(allErrs, NewFieldInvalidValue("dockerNetworkMode"))
+		allErrs = append(allErrs, NewFieldInvalidValueObj("dockerNetworkMode", config.DockerNetworkMode))
 	}
 	if config.Labels != nil {
 		for k := range config.Labels {
 			if len(k) == 0 {
-				allErrs = append(allErrs, NewFieldInvalidValue("labels"))
+				allErrs = append(allErrs, NewFieldInvalidValueWithReason("labels", "contains empty label"))
 			}
 		}
 	}
 	if config.Tag != "" {
 		if err := validateDockerReference(config.Tag); err != nil {
-			allErrs = append(allErrs, NewFieldInvalidValueWithReason("tag", err.Error()))
+			allErrs = append(allErrs, NewFieldInvalidValueWithReasonAndValue("tag", err.Error(), config.Tag))
 		}
 	}
 	return allErrs
@@ -72,9 +72,19 @@ func NewFieldInvalidValue(field string) Error {
 	return Error{Type: ErrorInvalidValue, Field: field}
 }
 
+// NewFieldInvalidValueObj returns a ValidationError indicating "invalid value"
+func NewFieldInvalidValueObj(field string, value interface{}) Error {
+	return Error{Type: ErrorInvalidValue, Field: field, Value: value}
+}
+
 // NewFieldInvalidValueWithReason returns a ValidationError indicating "invalid value" and a reason for the error
 func NewFieldInvalidValueWithReason(field, reason string) Error {
 	return Error{Type: ErrorInvalidValue, Field: field, Reason: reason}
+}
+
+// NewFieldInvalidValueWithReasonAndValue returns a ValidationError indicating the value and reason
+func NewFieldInvalidValueWithReasonAndValue(field, reason string, value interface{}) Error {
+	return Error{Type: ErrorInvalidValue, Field: field, Value: value, Reason: reason}
 }
 
 // ErrorType is a machine readable value providing more detail about why a field
@@ -96,6 +106,7 @@ const (
 type Error struct {
 	Type   ErrorType
 	Field  string
+	Value  interface{}
 	Reason string
 }
 
@@ -103,7 +114,7 @@ func (v Error) Error() string {
 	var msg string
 	switch v.Type {
 	case ErrorInvalidValue:
-		msg = fmt.Sprintf("Invalid value specified for %q", v.Field)
+		msg = fmt.Sprintf("Invalid value specified for %q, value: %v", v.Field, v.Value)
 	case ErrorTypeRequired:
 		msg = fmt.Sprintf("Required value not specified for %q", v.Field)
 	default:
