@@ -1,14 +1,13 @@
-FROM golang:1.11-alpine as builder
+FROM golang:1.15-alpine as builder
 
 WORKDIR /go/src/github.com/kubesphere/s2irun
 COPY cmd/ cmd/
 COPY pkg/ pkg/
-COPY vendor/ vendor/
 
 # Build
-RUN CGO_ENABLED=0 GOOS=linux GOARCH=amd64 go build -a -o builder github.com/kubesphere/s2irun/cmd
+RUN CGO_ENABLED=0 go build -a -o builder cmd/main.go
 
-FROM alpine:latest
+FROM alpine:3.13
 
 WORKDIR /root/
 
