@@ -51,13 +51,13 @@ You've just built and run a new container image from source code in a git reposi
 
    Process details:
 
-   ​	1. It will pull image that defind in filed `builderImage`. 
+   ​	1. It will pull image that defined in field `builderImage`. 
 
    ​	2. clone source code.
 
    ​	3. start build process
 
-   ​	4. after build completed, it will push read-to-run image
+   ​	4. after build completed, it will push ready-to-run image
 
 6. Finally, it will push image to your docker registry, please check it.
 
