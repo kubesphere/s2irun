@@ -8,7 +8,7 @@ COPY vendor/ vendor/
 # Build
 RUN CGO_ENABLED=0 GOOS=linux GOARCH=amd64 go build -a -o builder github.com/kubesphere/s2irun/cmd
 
-FROM alpine:latest
+FROM alpine:3.11
 
 WORKDIR /root/
 
