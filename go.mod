@@ -1,4 +1,4 @@
-module s2irun
+module github.com/kubesphere/s2irun
 
 go 1.19
 
@@ -7,7 +7,6 @@ require (
 	github.com/docker/docker v17.12.1-ce-rc1+incompatible
 	github.com/docker/go-connections v0.4.0
 	github.com/golang/glog v1.0.0
-	github.com/kubesphere/s2irun v3.2.0+incompatible
 	github.com/opencontainers/go-digest v1.0.0
 	golang.org/x/net v0.4.0
 	k8s.io/apimachinery v0.26.0

@@ -117,44 +117,6 @@ github.com/josharian/intern
 # github.com/json-iterator/go v1.1.12
 ## explicit; go 1.12
 github.com/json-iterator/go
-# github.com/kubesphere/s2irun v3.2.0+incompatible
-## explicit
-github.com/kubesphere/s2irun/pkg/api
-github.com/kubesphere/s2irun/pkg/api/constants
-github.com/kubesphere/s2irun/pkg/api/describe
-github.com/kubesphere/s2irun/pkg/api/validation
-github.com/kubesphere/s2irun/pkg/build
-github.com/kubesphere/s2irun/pkg/build/strategies
-github.com/kubesphere/s2irun/pkg/build/strategies/dockerfile
-github.com/kubesphere/s2irun/pkg/build/strategies/layered
-github.com/kubesphere/s2irun/pkg/build/strategies/onbuild
-github.com/kubesphere/s2irun/pkg/build/strategies/sti
-github.com/kubesphere/s2irun/pkg/docker
-github.com/kubesphere/s2irun/pkg/docker/test
-github.com/kubesphere/s2irun/pkg/errors
-github.com/kubesphere/s2irun/pkg/ignore
-github.com/kubesphere/s2irun/pkg/outputresult
-github.com/kubesphere/s2irun/pkg/run
-github.com/kubesphere/s2irun/pkg/scm
-github.com/kubesphere/s2irun/pkg/scm/downloaders/binary
-github.com/kubesphere/s2irun/pkg/scm/downloaders/empty
-github.com/kubesphere/s2irun/pkg/scm/downloaders/file
-github.com/kubesphere/s2irun/pkg/scm/downloaders/git
-github.com/kubesphere/s2irun/pkg/scm/git
-github.com/kubesphere/s2irun/pkg/scripts
-github.com/kubesphere/s2irun/pkg/tar
-github.com/kubesphere/s2irun/pkg/test
-github.com/kubesphere/s2irun/pkg/test/cmd
-github.com/kubesphere/s2irun/pkg/test/fs
-github.com/kubesphere/s2irun/pkg/utils
-github.com/kubesphere/s2irun/pkg/utils/bytefmt
-github.com/kubesphere/s2irun/pkg/utils/cmd
-github.com/kubesphere/s2irun/pkg/utils/cygpath
-github.com/kubesphere/s2irun/pkg/utils/fs
-github.com/kubesphere/s2irun/pkg/utils/glog
-github.com/kubesphere/s2irun/pkg/utils/interrupt
-github.com/kubesphere/s2irun/pkg/utils/status
-github.com/kubesphere/s2irun/pkg/utils/user
 # github.com/mailru/easyjson v0.7.6
 ## explicit; go 1.12
 github.com/mailru/easyjson/buffer
