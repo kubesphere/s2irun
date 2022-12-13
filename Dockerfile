@@ -4,6 +4,7 @@ WORKDIR /go/src/github.com/kubesphere/s2irun
 COPY cmd/ cmd/
 COPY pkg/ pkg/
 COPY vendor/ vendor/
+COPY go.mod go.sum ./
 
 # Build
 RUN CGO_ENABLED=0 GOOS=linux GOARCH=amd64 go build -a -o builder github.com/kubesphere/s2irun/cmd
