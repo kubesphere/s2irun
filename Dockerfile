@@ -7,7 +7,7 @@ COPY vendor/ vendor/
 COPY go.mod go.sum ./
 
 # Build
-RUN CGO_ENABLED=0 GOOS=linux GOARCH=amd64 go build -a -o builder github.com/kubesphere/s2irun/cmd
+RUN CGO_ENABLED=0 GOOS=linux GOARCH=amd64 go build -a -o builder s2irun/cmd
 
 FROM alpine:3.11
 
