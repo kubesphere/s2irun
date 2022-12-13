@@ -1,4 +1,4 @@
-FROM golang:1.11-alpine as builder
+FROM golang:1.19-alpine as builder
 
 WORKDIR /go/src/github.com/kubesphere/s2irun
 COPY cmd/ cmd/
