@@ -17,64 +17,28 @@ limitations under the License.
 package v1beta1
 
 import (
+	v1 "k8s.io/api/admissionregistration/v1"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 )
 
 // Rule is a tuple of APIGroups, APIVersion, and Resources.It is recommended
 // to make sure that all the tuple expansions are valid.
-type Rule struct {
-	// APIGroups is the API groups the resources belong to. '*' is all groups.
-	// If '*' is present, the length of the slice must be one.
-	// Required.
-	APIGroups []string `json:"apiGroups,omitempty" protobuf:"bytes,1,rep,name=apiGroups"`
+type Rule = v1.Rule
 
-	// APIVersions is the API versions the resources belong to. '*' is all versions.
-	// If '*' is present, the length of the slice must be one.
-	// Required.
-	APIVersions []string `json:"apiVersions,omitempty" protobuf:"bytes,2,rep,name=apiVersions"`
-
-	// Resources is a list of resources this rule applies to.
-	//
-	// For example:
-	// 'pods' means pods.
-	// 'pods/log' means the log subresource of pods.
-	// '*' means all resources, but not subresources.
-	// 'pods/*' means all subresources of pods.
-	// '*/scale' means all scale subresources.
-	// '*/*' means all resources and their subresources.
-	//
-	// If wildcard is present, the validation rule will ensure resources do not
-	// overlap with each other.
-	//
-	// Depending on the enclosing object, subresources might not be allowed.
-	// Required.
-	Resources []string `json:"resources,omitempty" protobuf:"bytes,3,rep,name=resources"`
-
-	// scope specifies the scope of this rule.
-	// Valid values are "Cluster", "Namespaced", and "*"
-	// "Cluster" means that only cluster-scoped resources will match this rule.
-	// Namespace API objects are cluster-scoped.
-	// "Namespaced" means that only namespaced resources will match this rule.
-	// "*" means that there are no scope restrictions.
-	// Subresources match the scope of their parent resource.
-	// Default is "*".
-	//
-	// +optional
-	Scope *ScopeType `json:"scope,omitempty" protobuf:"bytes,4,rep,name=scope"`
-}
-
-type ScopeType string
+// ScopeType specifies a scope for a Rule.
+type ScopeType = v1.ScopeType
 
 const (
 	// ClusterScope means that scope is limited to cluster-scoped objects.
 	// Namespace objects are cluster-scoped.
-	ClusterScope ScopeType = "Cluster"
+	ClusterScope ScopeType = v1.ClusterScope
 	// NamespacedScope means that scope is limited to namespaced objects.
-	NamespacedScope ScopeType = "Namespaced"
+	NamespacedScope ScopeType = v1.NamespacedScope
 	// AllScopes means that all scopes are included.
-	AllScopes ScopeType = "*"
+	AllScopes ScopeType = v1.AllScopes
 )
 
+// FailurePolicyType specifies a failure policy that defines how unrecognized errors from the admission endpoint are handled.
 type FailurePolicyType string
 
 const (
@@ -94,6 +58,7 @@ const (
 	Equivalent MatchPolicyType = "Equivalent"
 )
 
+// SideEffectClass specifies the types of side effects a webhook may have.
 type SideEffectClass string
 
 const (
@@ -113,11 +78,16 @@ const (
 // +genclient
 // +genclient:nonNamespaced
 // +k8s:deepcopy-gen:interfaces=k8s.io/apimachinery/pkg/runtime.Object
+// +k8s:prerelease-lifecycle-gen:introduced=1.9
+// +k8s:prerelease-lifecycle-gen:deprecated=1.16
+// +k8s:prerelease-lifecycle-gen:removed=1.22
+// +k8s:prerelease-lifecycle-gen:replacement=admissionregistration.k8s.io,v1,ValidatingWebhookConfiguration
 
 // ValidatingWebhookConfiguration describes the configuration of and admission webhook that accept or reject and object without changing it.
+// Deprecated in v1.16, planned for removal in v1.19. Use admissionregistration.k8s.io/v1 ValidatingWebhookConfiguration instead.
 type ValidatingWebhookConfiguration struct {
 	metav1.TypeMeta `json:",inline"`
-	// Standard object metadata; More info: https://git.k8s.io/community/contributors/devel/api-conventions.md#metadata.
+	// Standard object metadata; More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata.
 	// +optional
 	metav1.ObjectMeta `json:"metadata,omitempty" protobuf:"bytes,1,opt,name=metadata"`
 	// Webhooks is a list of webhooks and the affected resources and operations.
@@ -128,12 +98,16 @@ type ValidatingWebhookConfiguration struct {
 }
 
 // +k8s:deepcopy-gen:interfaces=k8s.io/apimachinery/pkg/runtime.Object
+// +k8s:prerelease-lifecycle-gen:introduced=1.9
+// +k8s:prerelease-lifecycle-gen:deprecated=1.16
+// +k8s:prerelease-lifecycle-gen:removed=1.22
+// +k8s:prerelease-lifecycle-gen:replacement=admissionregistration.k8s.io,v1,ValidatingWebhookConfigurationList
 
 // ValidatingWebhookConfigurationList is a list of ValidatingWebhookConfiguration.
 type ValidatingWebhookConfigurationList struct {
 	metav1.TypeMeta `json:",inline"`
 	// Standard list metadata.
-	// More info: https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
+	// More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
 	// +optional
 	metav1.ListMeta `json:"metadata,omitempty" protobuf:"bytes,1,opt,name=metadata"`
 	// List of ValidatingWebhookConfiguration.
@@ -143,11 +117,16 @@ type ValidatingWebhookConfigurationList struct {
 // +genclient
 // +genclient:nonNamespaced
 // +k8s:deepcopy-gen:interfaces=k8s.io/apimachinery/pkg/runtime.Object
+// +k8s:prerelease-lifecycle-gen:introduced=1.9
+// +k8s:prerelease-lifecycle-gen:deprecated=1.16
+// +k8s:prerelease-lifecycle-gen:removed=1.22
+// +k8s:prerelease-lifecycle-gen:replacement=admissionregistration.k8s.io,v1,MutatingWebhookConfiguration
 
 // MutatingWebhookConfiguration describes the configuration of and admission webhook that accept or reject and may change the object.
+// Deprecated in v1.16, planned for removal in v1.19. Use admissionregistration.k8s.io/v1 MutatingWebhookConfiguration instead.
 type MutatingWebhookConfiguration struct {
 	metav1.TypeMeta `json:",inline"`
-	// Standard object metadata; More info: https://git.k8s.io/community/contributors/devel/api-conventions.md#metadata.
+	// Standard object metadata; More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata.
 	// +optional
 	metav1.ObjectMeta `json:"metadata,omitempty" protobuf:"bytes,1,opt,name=metadata"`
 	// Webhooks is a list of webhooks and the affected resources and operations.
@@ -158,12 +137,16 @@ type MutatingWebhookConfiguration struct {
 }
 
 // +k8s:deepcopy-gen:interfaces=k8s.io/apimachinery/pkg/runtime.Object
+// +k8s:prerelease-lifecycle-gen:introduced=1.9
+// +k8s:prerelease-lifecycle-gen:deprecated=1.16
+// +k8s:prerelease-lifecycle-gen:removed=1.22
+// +k8s:prerelease-lifecycle-gen:replacement=admissionregistration.k8s.io,v1,MutatingWebhookConfigurationList
 
 // MutatingWebhookConfigurationList is a list of MutatingWebhookConfiguration.
 type MutatingWebhookConfigurationList struct {
 	metav1.TypeMeta `json:",inline"`
 	// Standard list metadata.
-	// More info: https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
+	// More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
 	// +optional
 	metav1.ListMeta `json:"metadata,omitempty" protobuf:"bytes,1,opt,name=metadata"`
 	// List of MutatingWebhookConfiguration.
@@ -273,10 +256,10 @@ type ValidatingWebhook struct {
 	// +optional
 	ObjectSelector *metav1.LabelSelector `json:"objectSelector,omitempty" protobuf:"bytes,10,opt,name=objectSelector"`
 
-	// SideEffects states whether this webhookk has side effects.
+	// SideEffects states whether this webhook has side effects.
 	// Acceptable values are: Unknown, None, Some, NoneOnDryRun
 	// Webhooks with side effects MUST implement a reconciliation system, since a request may be
-	// rejected by a future step in the admission change and the side effects therefore need to be undone.
+	// rejected by a future step in the admission chain and the side effects therefore need to be undone.
 	// Requests with the dryRun attribute will be auto-rejected if they match a webhook with
 	// sideEffects == Unknown or Some. Defaults to Unknown.
 	// +optional
@@ -405,10 +388,10 @@ type MutatingWebhook struct {
 	// +optional
 	ObjectSelector *metav1.LabelSelector `json:"objectSelector,omitempty" protobuf:"bytes,11,opt,name=objectSelector"`
 
-	// SideEffects states whether this webhookk has side effects.
+	// SideEffects states whether this webhook has side effects.
 	// Acceptable values are: Unknown, None, Some, NoneOnDryRun
 	// Webhooks with side effects MUST implement a reconciliation system, since a request may be
-	// rejected by a future step in the admission change and the side effects therefore need to be undone.
+	// rejected by a future step in the admission chain and the side effects therefore need to be undone.
 	// Requests with the dryRun attribute will be auto-rejected if they match a webhook with
 	// sideEffects == Unknown or Some. Defaults to Unknown.
 	// +optional
@@ -467,26 +450,19 @@ const (
 
 // RuleWithOperations is a tuple of Operations and Resources. It is recommended to make
 // sure that all the tuple expansions are valid.
-type RuleWithOperations struct {
-	// Operations is the operations the admission hook cares about - CREATE, UPDATE, or *
-	// for all operations.
-	// If '*' is present, the length of the slice must be one.
-	// Required.
-	Operations []OperationType `json:"operations,omitempty" protobuf:"bytes,1,rep,name=operations,casttype=OperationType"`
-	// Rule is embedded, it describes other criteria of the rule, like
-	// APIGroups, APIVersions, Resources, etc.
-	Rule `json:",inline" protobuf:"bytes,2,opt,name=rule"`
-}
+type RuleWithOperations = v1.RuleWithOperations
 
-type OperationType string
+// OperationType specifies an operation for a request.
+// +enum
+type OperationType = v1.OperationType
 
 // The constants should be kept in sync with those defined in k8s.io/kubernetes/pkg/admission/interface.go.
 const (
-	OperationAll OperationType = "*"
-	Create       OperationType = "CREATE"
-	Update       OperationType = "UPDATE"
-	Delete       OperationType = "DELETE"
-	Connect      OperationType = "CONNECT"
+	OperationAll OperationType = v1.OperationAll
+	Create       OperationType = v1.Create
+	Update       OperationType = v1.Update
+	Delete       OperationType = v1.Delete
+	Connect      OperationType = v1.Connect
 )
 
 // WebhookClientConfig contains the information to make a TLS
