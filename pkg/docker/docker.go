@@ -136,6 +136,25 @@ type Client interface {
 	ServerVersion(ctx context.Context) (dockertypes.Version, error)
 }
 
+type Clientx interface {
+	ContainerAttach(ctx context.Context, container string, options dockercontainer.AttachOptions) (dockertypes.HijackedResponse, error)
+	ContainerCommit(ctx context.Context, container string, options dockercontainer.CommitOptions) (dockercontainer.CommitResponse, error)
+	ContainerCreate(ctx context.Context, config *dockercontainer.Config, hostConfig *dockercontainer.HostConfig, networkingConfig *dockernetwork.NetworkingConfig, containerName string) (dockercontainer.ContainerCreateCreatedBody, error)
+	ContainerInspect(ctx context.Context, container string) (dockertypes.ContainerJSON, error)
+	ContainerRemove(ctx context.Context, container string, options dockertypes.ContainerRemoveOptions) error
+	ContainerStart(ctx context.Context, container string, options dockertypes.ContainerStartOptions) error
+	ContainerKill(ctx context.Context, container, signal string) error
+	ContainerWait(ctx context.Context, container string, condition dockercontainer.WaitCondition) (<-chan dockercontainer.ContainerWaitOKBody, <-chan error)
+	CopyToContainer(ctx context.Context, container, path string, content io.Reader, opts dockertypes.CopyToContainerOptions) error
+	CopyFromContainer(ctx context.Context, container, srcPath string) (io.ReadCloser, dockertypes.ContainerPathStat, error)
+	ImageBuild(ctx context.Context, buildContext io.Reader, options dockertypes.ImageBuildOptions) (dockertypes.ImageBuildResponse, error)
+	ImageInspectWithRaw(ctx context.Context, image string) (dockertypes.ImageInspect, []byte, error)
+	ImagePull(ctx context.Context, ref string, options dockertypes.ImagePullOptions) (io.ReadCloser, error)
+	ImagePush(ctx context.Context, ref string, options dockertypes.ImagePushOptions) (io.ReadCloser, error)
+	ImageRemove(ctx context.Context, image string, options dockertypes.ImageRemoveOptions) ([]dockertypes.ImageDeleteResponseItem, error)
+	ServerVersion(ctx context.Context) (dockertypes.Version, error)
+}
+
 type stiDocker struct {
 	client   Client
 	pullAuth dockertypes.AuthConfig
@@ -309,6 +328,8 @@ func NewEngineAPIClient(config *api.DockerConfig) (*dockerapi.Client, error) {
 			},
 		}
 	}
+	dockerapi.NewClientWithOpts(
+		client.)
 	return dockerapi.NewClient(config.Endpoint, os.Getenv("DOCKER_API_VERSION"), httpClient, nil)
 }
 

@@ -13,8 +13,8 @@ import (
 	"regexp"
 	"strings"
 
-	"github.com/docker/distribution/reference"
-	cliconfig "github.com/docker/docker/cli/config"
+	cliconfig "github.com/docker/cli/cli/config"
+	"github.com/distribution/reference"
 	"github.com/docker/docker/client"
 
 	"github.com/kubesphere/s2irun/pkg/api"

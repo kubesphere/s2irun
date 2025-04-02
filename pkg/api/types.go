@@ -3,13 +3,14 @@ package api
 import (
 	"errors"
 	"fmt"
-	"github.com/opencontainers/go-digest"
 	"net/url"
 	"path/filepath"
 	"strings"
 	"time"
 
-	"github.com/docker/distribution/reference"
+	"github.com/opencontainers/go-digest"
+
+	"github.com/distribution/reference"
 	"github.com/kubesphere/s2irun/pkg/scm/git"
 	utilglog "github.com/kubesphere/s2irun/pkg/utils/glog"
 	"github.com/kubesphere/s2irun/pkg/utils/user"

@@ -7,13 +7,13 @@ import (
 	"strings"
 	"testing"
 
-	"github.com/docker/docker/builder/dockerfile/parser"
 	"github.com/kubesphere/s2irun/pkg/api"
 	"github.com/kubesphere/s2irun/pkg/docker"
 	"github.com/kubesphere/s2irun/pkg/scm/git"
 	"github.com/kubesphere/s2irun/pkg/test"
 	testfs "github.com/kubesphere/s2irun/pkg/test/fs"
 	"github.com/kubesphere/s2irun/pkg/utils/fs"
+	"github.com/moby/buildkit/frontend/dockerfile/parser"
 )
 
 type fakeSourceHandler struct{}
