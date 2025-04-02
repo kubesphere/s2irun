@@ -189,6 +189,7 @@ func New(client dockerpkg.Client, config *api.Config, fs fs.FileSystem, override
 // to determine whether a build succeeded or not.
 func (builder *STI) Build(config *api.Config) (*api.Result, error) {
 	delete(config.Labels, constants.BuildSourceLocationLabel)
+	delete(builder.config.Labels, constants.BuildSourceLocationLabel)
 	builder.result = &api.Result{}
 
 	if len(builder.config.CallbackURL) > 0 {
