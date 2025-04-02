@@ -22,7 +22,6 @@ jobs:
       with:
         images: |
           kubespheredev/s2irun
-          ghcr.io/${{ github.repository_owner }}/s2irun
         tags: |
           type=schedule
           type=ref,event=branch
@@ -64,13 +63,3 @@ jobs:
         load: ${{ steps.build_env.outputs.load }}
         labels: ${{ steps.meta.outputs.labels }}
         platforms: ${{ steps.build_env.outputs.platforms }}
-    - name: Run Trivy vulnerability scanner
-      uses: aquasecurity/trivy-action@0.2.0
-      if: github.event_name == 'pull_request'
-      with:
-        image-ref: 'ghcr.io/${{ github.repository_owner }}/s2irun:sha-${{ steps.build_env.outputs.short_sha }}'
-        format: 'table'
-        exit-code: '1'
-        ignore-unfixed: true
-        vuln-type: 'os,library'
-        severity: 'CRITICAL,HIGH'
