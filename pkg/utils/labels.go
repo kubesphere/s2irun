@@ -55,7 +55,7 @@ func GenerateLabelsFromSourceInfo(labels map[string]string, info *git.SourceInfo
 	addBuildLabel(labels, "commit.id", info.CommitID, namespace)
 	addBuildLabel(labels, "commit.ref", info.Ref, namespace)
 	addBuildLabel(labels, "commit.message", info.Message, namespace)
-	addBuildLabel(labels, "source-location", info.Location, namespace)
+	//addBuildLabel(labels, "source-location", info.Location, namespace)
 	addBuildLabel(labels, "source-context-dir", info.ContextDir, namespace)
 	return labels
 }
