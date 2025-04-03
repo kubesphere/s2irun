@@ -13,7 +13,7 @@ import (
 	"regexp"
 	"strings"
 
-	"github.com/docker/distribution/reference"
+	"github.com/distribution/reference"
 	cliconfig "github.com/docker/docker/cli/config"
 	"github.com/docker/docker/client"
 

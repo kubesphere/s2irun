@@ -6,6 +6,7 @@ import (
 	"time"
 
 	"github.com/kubesphere/s2irun/pkg/api"
+	"golang.org/x/net/context"
 	"k8s.io/apimachinery/pkg/apis/meta/v1"
 	"k8s.io/apimachinery/pkg/util/wait"
 	"k8s.io/client-go/kubernetes"
@@ -62,7 +63,7 @@ func AddBuildResultToAnnotation(buildResult *api.Result) error {
 	k8sClient := kubernetes.NewForConfigOrDie(cfg)
 
 	retryErr := retry.RetryOnConflict(Retry, func() error {
-		pod, err := k8sClient.CoreV1().Pods(namespace).Get(podName, v1.GetOptions{})
+		pod, err := k8sClient.CoreV1().Pods(namespace).Get(context.Background(), podName, v1.GetOptions{})
 		if err != nil {
 			glog.Errorf("failed to get pod %s in namespace %s, reason: %s", podName, namespace, err)
 			return err
@@ -76,7 +77,7 @@ func AddBuildResultToAnnotation(buildResult *api.Result) error {
 			api.AnnotationBuildSourceKey: string(source),
 		}
 
-		_, err = k8sClient.CoreV1().Pods(namespace).Update(pod)
+		_, err = k8sClient.CoreV1().Pods(namespace).Update(context.Background(), pod, v1.UpdateOptions{})
 		return err
 	})
 
