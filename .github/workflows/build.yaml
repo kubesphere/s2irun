@@ -15,7 +15,7 @@ jobs:
   Build:
     runs-on: ubuntu-22.04
     steps:
-    - uses: actions/checkout@v2
+    - uses: actions/checkout@v4
     - name: Docker meta for KubeSphere
       id: meta
       if: github.repository_owner == 'kubesphere'
