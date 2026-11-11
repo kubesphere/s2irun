@@ -9,7 +9,7 @@ COPY go.sum go.sum
 # Build
 RUN CGO_ENABLED=0 GO111MODULE=on GOOS=linux go build -a -o builder github.com/kubesphere/s2irun/cmd
 
-FROM alpine:3.21
+FROM alpine:latest
 
 WORKDIR /root/
 
